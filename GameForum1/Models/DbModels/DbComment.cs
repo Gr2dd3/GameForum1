@@ -1,17 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace GameForum1.Models.DbModels;
 
-namespace GameForum1.Models.DbModels
+public class DbComment
 {
-    public class Comment
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [JsonPropertyName("userThreadId")]
-        public int UserThreadId { get; set; }
+    public int UserThreadId { get; set; }
 
-        [JsonPropertyName("userId")]
-        public string UserId { get; set; }
-    }
-
+    public string UserId { get; set; }
 }

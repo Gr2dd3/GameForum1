@@ -1,0 +1,38 @@
+﻿@page
+@model GameForum1.Pages.Admin.SubCategoryAdmin.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DbSubCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DbSubCategory.MainCategoryId" class="control-label"></label>
+                <input asp-for="DbSubCategory.MainCategoryId" class="form-control" />
+                <span asp-validation-for="DbSubCategory.MainCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="control-label"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

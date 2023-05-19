@@ -1,13 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace GameForum1.Models;
 
-namespace GameForum1.Models
+public class MainCategory
 {
-    public class MainCategory
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
 
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-    }
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
 }

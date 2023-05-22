@@ -1,46 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using GameForum1.Data;
-using GameForum1.Models.DbModels;
+﻿namespace GameForum1.Pages.Admin.MainCategoryAdmin;
 
-namespace GameForum1.Pages.Admin.MainCategoryAdmin
+// TODO: MainCategoryManager (anrop till api) gjord. Gör nu CRUD för frontend
+public class CreateModel : PageModel
 {
-    // TODO: MainCategoryManager (anrop till api) gjord. Gör nu CRUD för frontend
-    public class CreateModel : PageModel
+    /// <summary>
+    /// TODO: Mattias söndag - Skapat Bakomliggande kod till Create-page MainCategory
+    /// </summary>
+    private readonly GameForum1Context _context;
+
+    public CreateModel(GameForum1Context context)
     {
-        private readonly GameForum1.Data.GameForum1Context _context;
+        _context = context;
+    }
 
-        public CreateModel(GameForum1.Data.GameForum1Context context)
+
+    public List<MainCategory> MainCategories { get; set; }
+
+    [BindProperty]
+    public DbMainCategory DbMainCategory { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync()
+    {
+        MainCategories = await DAL.MainCategoryManager.GetMainCategories();
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        MainCategories = await DAL.MainCategoryManager.GetMainCategories();
+        var existingMainCategory = MainCategories.Where(x => x.Name.ToLower() == DbMainCategory.Name.ToLower()).FirstOrDefault();
+
+        if (ModelState.IsValid && DbMainCategory is not null && existingMainCategory is null)
         {
-            _context = context;
-        }
+            SaveNewMainCategoryIdToDatabase();
+            var mainCategoryId = _context.MainCategories.ToList().TakeLast(1).Select(x => x.Id).FirstOrDefault();
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
-
-        [BindProperty]
-        public DbMainCategory DbMainCategory { get; set; } = default!;
-
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid || _context.MainCategories == null || DbMainCategory == null)
+            var mainCategory = new MainCategory
             {
-                return Page();
+                Id = mainCategoryId,
+                Name = DbMainCategory.Name
+            };
+            await DAL.MainCategoryManager.CreateMainCategory(mainCategory);
+        }
+
+        return RedirectToPage("./Index");
+    }
+
+    public void SaveNewMainCategoryIdToDatabase()
+    {
+        if (DbMainCategory is not null)
+        {
+            var existingCategory = _context.MainCategories.Where(x => x.Id == DbMainCategory.Id).FirstOrDefault();
+
+            if (existingCategory is null)
+            {
+                _context.MainCategories.Add(DbMainCategory);
+                _context.SaveChanges();
             }
-
-            _context.MainCategories.Add(DbMainCategory);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
         }
     }
 }

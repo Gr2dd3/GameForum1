@@ -1,30 +1,41 @@
 ﻿@page
 @model GameForum1.Pages.Admin.SubCategoryAdmin.CreateModel
 @{
+    List<MainCategory> mainCategories = await DAL.MainCategoryManager.GetMainCategories();
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>DbSubCategory</h4>
+<h4>Create new SubCategory</h4>
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DbSubCategory.MainCategoryId" class="control-label"></label>
-                <input asp-for="DbSubCategory.MainCategoryId" class="form-control" />
-                <span asp-validation-for="DbSubCategory.MainCategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Name" class="control-label"></label>
-                <input asp-for="@Model.Name" class="form-control" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            <h4>Choose Maincategory</h4>
+            @if (mainCategories is not null && mainCategories.Count > 0)
+            {
+                @foreach (var mainCategory in @mainCategories)
+                {
+                    <a asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
+                }
+
+                <br />
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="@Model.SubCategory.Id" type="hidden" />
+                    <label asp-for="@Model.SubCategory.Name" class="control-label"></label>
+                    <input asp-for="@Model.SubCategory.Name" class="form-control" />
+                    <span asp-validation-for="@Model.SubCategory.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary mt-3 mb-2" />
+                </div>
+            }
         </form>
     </div>
 </div>
@@ -34,5 +45,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -20,13 +20,15 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
         }
 
         public IList<DbSubCategory> DbSubCategory { get;set; } = default!;
+        public List<SubCategory> SubCategories { get; set; }
 
         public async Task OnGetAsync()
         {
-            if (_context.SubCategories != null)
+            if (_context.SubCategories is not null)
             {
                 DbSubCategory = await _context.SubCategories.ToListAsync();
             }
+            SubCategories = await DAL.SubCategoryManager.GetSubCategories();
         }
     }
 }

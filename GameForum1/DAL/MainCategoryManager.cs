@@ -2,6 +2,8 @@
 
 public class MainCategoryManager
 {
+    // API
+
     private static Uri _baseAdress = new Uri("https://localhost:44342/");
 
     public static List<MainCategory> MainCategories { get; set; }
@@ -14,7 +16,7 @@ public class MainCategoryManager
         using (var client = new HttpClient())
         {
             client.BaseAddress = _baseAdress;
-            HttpResponseMessage response = await client.GetAsync("api/MainCategories");
+            HttpResponseMessage response = await client.GetAsync("api/MainCategory");
 
             if (response.IsSuccessStatusCode)
             {
@@ -38,7 +40,7 @@ public class MainCategoryManager
                 client.BaseAddress = _baseAdress;
                 var json = JsonSerializer.Serialize(updateMainCategory);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync("api/MainCategories/" + updateMainCategory.Id, httpContent);
+                HttpResponseMessage response = await client.PutAsync("api/MainCategory/" + updateMainCategory.Id, httpContent);
             }
         }
     }
@@ -53,7 +55,17 @@ public class MainCategoryManager
             client.BaseAddress = _baseAdress;
             var json = JsonSerializer.Serialize(existingMainCategory);
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("api/MainCategories/", httpContent);
+            HttpResponseMessage response = await client.PostAsync("api/MainCategory/", httpContent);
+        }
+    }
+
+    // DELETE
+    public static async Task DeleteMainCategory(int id)
+    {
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = _baseAdress;
+            HttpResponseMessage response = await client.DeleteAsync("api/MainCategory/" + id);
         }
     }
 }

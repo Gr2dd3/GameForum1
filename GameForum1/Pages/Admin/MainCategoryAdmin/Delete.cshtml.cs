@@ -10,6 +10,10 @@ using GameForum1.Models.DbModels;
 
 namespace GameForum1.Pages.Admin.MainCategoryAdmin
 {
+    /// <summary>
+    /// TODO: Mattias söndag - MainCategory Delete fixad
+    /// så den tar bort från både db och api (rad 60)
+    /// </summary>
     public class DeleteModel : PageModel
     {
         private readonly GameForum1.Data.GameForum1Context _context;
@@ -53,9 +57,11 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
             if (dbmaincategory != null)
             {
                 DbMainCategory = dbmaincategory;
+                await DAL.MainCategoryManager.DeleteMainCategory((int) id);
                 _context.MainCategories.Remove(DbMainCategory);
                 await _context.SaveChangesAsync();
             }
+
 
             return RedirectToPage("./Index");
         }

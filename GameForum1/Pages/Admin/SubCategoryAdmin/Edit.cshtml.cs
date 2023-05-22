@@ -13,6 +13,9 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {
     public class EditModel : PageModel
     {
+        /// <summary>
+        /// TODO: Mattias söndag - SubCategoryAdmin Edit EJ TESTAD
+        /// </summary>
         private readonly GameForum1.Data.GameForum1Context _context;
 
         public EditModel(GameForum1.Data.GameForum1Context context)
@@ -21,7 +24,8 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
         }
 
         [BindProperty]
-        public DbSubCategory DbSubCategory { get; set; } = default!;
+        public SubCategory SubCategory { get; set; }
+        public string WarningForNonExistingDbSubCategory { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,48 +34,57 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
                 return NotFound();
             }
 
-            var dbsubcategory =  await _context.SubCategories.FirstOrDefaultAsync(m => m.Id == id);
-            if (dbsubcategory == null)
-            {
-                return NotFound();
-            }
-            DbSubCategory = dbsubcategory;
+            SubCategory = await DAL.SubCategoryManager.GetOneSubCategory((int)id);
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || SubCategory is not null)
             {
-                return Page();
-            }
-
-            _context.Attach(DbSubCategory).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DbSubCategoryExists(DbSubCategory.Id))
+                var existingDbSubCategory = _context.SubCategories.Where(x => x.Id == SubCategory.Id).FirstOrDefault();
+                if (existingDbSubCategory is not null)
                 {
-                    return NotFound();
+                    await DAL.SubCategoryManager.UpdateSubCategory(SubCategory);
+                    //_context.Update(existingDbSubCategory);
+                    _context.Attach(existingDbSubCategory).State = EntityState.Modified;
+                    try
+                    {
+                        _context.SaveChanges();
+                    }
+                    catch (Exception) { }
                 }
                 else
                 {
-                    throw;
+                    WarningForNonExistingDbSubCategory = "The SubCategory does not exist! Try adding one instead";
                 }
+                return Page();
             }
 
+
+            //_context.Attach(DbSubCategory).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!DbSubCategoryExists(DbSubCategory.Id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
             return RedirectToPage("./Index");
         }
 
         private bool DbSubCategoryExists(int id)
         {
-          return (_context.SubCategories?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.SubCategories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

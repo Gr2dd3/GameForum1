@@ -12,6 +12,10 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {
     public class DetailsModel : PageModel
     {
+
+        /// <summary>
+        /// TODO: Details Subcategory behöver ändras från DbSubCategories
+        /// </summary>
         private readonly GameForum1.Data.GameForum1Context _context;
 
         public DetailsModel(GameForum1.Data.GameForum1Context context)
@@ -19,24 +23,24 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
             _context = context;
         }
 
-      public DbSubCategory DbSubCategory { get; set; } = default!; 
+      //public DbSubCategory DbSubCategory { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.SubCategories == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.SubCategories == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var dbsubcategory = await _context.SubCategories.FirstOrDefaultAsync(m => m.Id == id);
-            if (dbsubcategory == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                DbSubCategory = dbsubcategory;
-            }
+            //var dbsubcategory = await _context.SubCategories.FirstOrDefaultAsync(m => m.Id == id);
+            //if (dbsubcategory == null)
+            //{
+            //    return NotFound();
+            //}
+            //else 
+            //{
+            //    DbSubCategory = dbsubcategory;
+            //}
             return Page();
         }
     }

@@ -12,6 +12,9 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {
     public class DeleteModel : PageModel
     {
+        /// <summary>
+        /// TODO: Mattias söndag - SubCategoryAdmin Delete EJ KLAR
+        /// </summary>
         private readonly GameForum1.Data.GameForum1Context _context;
 
         public DeleteModel(GameForum1.Data.GameForum1Context context)
@@ -19,8 +22,11 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
             _context = context;
         }
 
+        //  [BindProperty]
+        //public DbSubCategory DbSubCategory { get; set; } = default!;
+
         [BindProperty]
-      public DbSubCategory DbSubCategory { get; set; } = default!;
+        public SubCategory SubCategory { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,16 +35,7 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
                 return NotFound();
             }
 
-            var dbsubcategory = await _context.SubCategories.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (dbsubcategory == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                DbSubCategory = dbsubcategory;
-            }
+            SubCategory = await DAL.SubCategoryManager.GetOneSubCategory((int)id);
             return Page();
         }
 
@@ -52,9 +49,13 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 
             if (dbsubcategory != null)
             {
-                DbSubCategory = dbsubcategory;
-                _context.SubCategories.Remove(DbSubCategory);
-                await _context.SaveChangesAsync();
+                _context.SubCategories.Remove(dbsubcategory);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception) { }
+                await DAL.SubCategoryManager.DeleteSubCategory((int) id);
             }
 
             return RedirectToPage("./Index");

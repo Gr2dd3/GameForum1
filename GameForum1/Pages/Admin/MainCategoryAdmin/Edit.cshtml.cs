@@ -11,6 +11,10 @@ using GameForum1.Models.DbModels;
 
 namespace GameForum1.Pages.Admin.MainCategoryAdmin
 {
+    /// <summary>
+    /// TODO: Mattias söndag - Lagt till kod i Edit MainCategory
+    /// Rad 72 till 83 för att den ska ändras även i API
+    /// </summary>
     public class EditModel : PageModel
     {
         private readonly GameForum1.Data.GameForum1Context _context;
@@ -64,6 +68,15 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
                 {
                     throw;
                 }
+            }
+            if (DbMainCategory is not null)
+            {
+                var mainCategory = new MainCategory 
+                { 
+                    Id = DbMainCategory.Id,
+                    Name = DbMainCategory.Name
+                };
+                await DAL.MainCategoryManager.UpdateMainCategory(mainCategory);
             }
 
             return RedirectToPage("./Index");

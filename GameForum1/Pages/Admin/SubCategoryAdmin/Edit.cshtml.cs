@@ -14,7 +14,7 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
     public class EditModel : PageModel
     {
         /// <summary>
-        /// TODO: Mattias söndag - SubCategoryAdmin Edit EJ TESTAD
+        /// TODO: EDIT FUnkar ej, rätt id kommer in men det sparas ej mot API
         /// </summary>
         private readonly GameForum1.Data.GameForum1Context _context;
 

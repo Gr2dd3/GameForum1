@@ -31,16 +31,14 @@ public class MainCategoryManager
     // UPDATE
     public static async Task UpdateMainCategory(MainCategory existingMainCategory)
     {
-        var updateMainCategory = (await GetMainCategories()).Where(p => p.Id == existingMainCategory.Id).FirstOrDefault();
-
-        if (updateMainCategory != null)
+        if (existingMainCategory != null)  // TODO: Kanske inte behövs
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = _baseAdress;
-                var json = JsonSerializer.Serialize(updateMainCategory);
+                var json = JsonSerializer.Serialize(existingMainCategory);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync("api/MainCategory/" + updateMainCategory.Id, httpContent);
+                HttpResponseMessage response = await client.PutAsync("api/MainCategory/" + existingMainCategory.Id, httpContent);
             }
         }
     }

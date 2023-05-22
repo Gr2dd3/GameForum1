@@ -13,7 +13,7 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
     public class DeleteModel : PageModel
     {
         /// <summary>
-        /// TODO: Mattias söndag - SubCategoryAdmin Delete EJ KLAR
+        /// TODO: Delete funkar inte mot API, det tas bort från databas men inte API.
         /// </summary>
         private readonly GameForum1.Data.GameForum1Context _context;
 

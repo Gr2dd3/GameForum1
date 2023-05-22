@@ -3,8 +3,7 @@
 public class CreateModel : PageModel
 {
     /// <summary>
-    /// TODO: Mattias söndag - Skapat bakomliggande kod till Create-page SubCategory.
-    /// Även gjort i Frontend men måste dubbelkolla om det funkar.
+    /// TODO: CREATE Funkar bra, rätt ID's överallt.
     /// </summary>
 
     private readonly GameForum1Context _context;
@@ -28,6 +27,8 @@ public class CreateModel : PageModel
         var subCategories = await DAL.SubCategoryManager.GetSubCategories();
 
         var existingSubCategory = subCategories.Where(x => x.Name.ToLower() == SubCategory.Name.ToLower()).FirstOrDefault();
+
+
         if (ModelState.IsValid && _context.SubCategories is not null && existingSubCategory is null)
         {
             if (SubCategory is not null)

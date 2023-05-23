@@ -11,17 +11,34 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("GameForum1ContextConnection") ?? throw new InvalidOperationException("Connection string 'GameForum1ContextConnection' not found.");
 
+        builder.Services.AddScoped<UserThread>();
 
         builder.Services.AddTransient<GameForum1Context>();
         builder.Services.AddTransient<MainCategory>();
+        builder.Services.AddTransient<List<MainCategory>>();
+        builder.Services.AddTransient<List<SubCategory>>();
+        builder.Services.AddTransient<List<UserThread>>();
+        builder.Services.AddTransient<List<Comment>>();
         builder.Services.AddTransient<SubCategory>();
+
+        builder.Services.AddRazorPages(options =>
+        {
+            options.Conventions.AuthorizeFolder("/Admin");
+            options.Conventions.AuthorizeFolder("/Admin", "AdminRequired");
+        });
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminRequired", policy => policy.RequireRole("Admin"));
+        });
 
         builder.Services.AddDbContext<GameForum1Context>(options => options.UseSqlServer(connectionString));
 
-        builder.Services.AddDefaultIdentity<GameForum1User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<GameForum1Context>();
+        builder.Services.AddDefaultIdentity<GameForum1User>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<GameForum1Context>();
 
         // Add services to the container.
-        builder.Services.AddRazorPages();
+        //builder.Services.AddRazorPages();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {
@@ -37,6 +54,7 @@ public class Program
             options.Password.RequiredLength = 6;
             options.Password.RequiredUniqueChars = 1;
         });
+
 
         var app = builder.Build();
 

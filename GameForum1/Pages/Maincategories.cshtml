@@ -1,0 +1,17 @@
+﻿@page
+@model GameForum1.Pages.MaincategoriesModel
+@inject List<Models.MainCategory> MainCategories
+@{
+
+    MainCategories = await DAL.MainCategoryManager.GetMainCategories();
+}
+<div>
+    <h3 class="display-3">Maincategories</h3>
+</div>
+@foreach (var mainCategory in MainCategories)
+{
+    <div class="lead">
+        <a asp-page="/Subcategories" asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
+    </div>
+
+}

@@ -1,0 +1,67 @@
+﻿@page
+@model GameForum1.Pages.Admin.RoleManagerModel
+@{
+}
+<div>
+    <h1>Befintliga roller</h1>
+    @foreach (var role in Model.Roles)
+    {
+        <p>@role.Name</p>
+    }
+</div>
+<div>
+    @if (Model.IsAdmin)
+    {
+        <p class="alert alert-primary">Det här får bara admin se</p>
+    }
+    @if (Model.IsUser)
+    {
+        <p class="alert alert-success">Det här får bara användaren se</p>
+    }
+</div>
+<div>
+    <h1>Befintliga användare</h1>
+    <table class="table">
+        <tr>
+            <th>
+                Username
+            </th>
+            @foreach (var role in Model.Roles)
+            {
+                <th>
+                    @role.Name
+                </th>
+            }
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>
+                    @user.FirstName
+                </td>
+                @foreach (var role in Model.Roles)
+                {
+                    if (await Model._userManager.IsInRoleAsync(user, role.Name))
+                    {
+                        <td>
+                            <a href="?RemoveUserId=@user.Id&role=@role.Name"><button class="btn btn-outline-success p-1">Ja</button></a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="?AddUserId=@user.Id&role=@role.Name"><button class="btn btn-outline-danger p-1">Nej</button></a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <form method="post">
+        <label for="RoleName">Ny roll</label>
+        <input name="RoleName" id="RoleName" />
+        <input type="submit" value="Skapa ny roll" />
+    </form>
+</div>

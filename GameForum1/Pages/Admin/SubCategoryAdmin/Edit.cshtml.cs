@@ -46,7 +46,7 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
                 if (existingDbSubCategory is not null)
                 {
                     await DAL.SubCategoryManager.UpdateSubCategory(SubCategory);
-                    //_context.Update(existingDbSubCategory);
+                    
                     _context.Attach(existingDbSubCategory).State = EntityState.Modified;
                     try
                     {
@@ -58,28 +58,9 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
                 {
                     WarningForNonExistingDbSubCategory = "The SubCategory does not exist! Try adding one instead";
                 }
-                return Page();
-            }
-
-
-            //_context.Attach(DbSubCategory).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!DbSubCategoryExists(DbSubCategory.Id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-            return RedirectToPage("./Index");
+                return RedirectToPage("./Index");
+            }            
+            return Page();
         }
 
         private bool DbSubCategoryExists(int id)

@@ -55,8 +55,8 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
                     await _context.SaveChangesAsync();
                 }
                 catch (Exception) { }
-                await DAL.SubCategoryManager.DeleteSubCategory((int) id);
             }
+            await DAL.SubCategoryManager.DeleteSubCategory((int)id);
 
             return RedirectToPage("./Index");
         }

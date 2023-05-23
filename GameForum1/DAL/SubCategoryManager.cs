@@ -61,18 +61,18 @@
         // UPDATE
         public static async Task UpdateSubCategory(SubCategory existingSubCategory)
         {
-            var updateSubCategory = (await GetSubCategories()).Where(p => p.Id == existingSubCategory.Id).FirstOrDefault();
+            //var updateSubCategory = (await GetSubCategories()).Where(p => p.Id == existingSubCategory.Id).FirstOrDefault();
 
-            if (updateSubCategory is not null)
-            {
+            //if (updateSubCategory is not null)
+            //{
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = _baseAdress;
-                    var json = JsonSerializer.Serialize(updateSubCategory);
+                    var json = JsonSerializer.Serialize(existingSubCategory);
                     StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PutAsync("api/SubCategory/" + updateSubCategory.Id, httpContent);
+                    HttpResponseMessage response = await client.PutAsync("api/SubCategory/" + existingSubCategory.Id, httpContent);
                 }
-            }
+            //}
         }
 
         // CREATE

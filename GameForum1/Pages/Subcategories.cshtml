@@ -1,0 +1,15 @@
+﻿@page
+@model GameForum1.Pages.SubcategoriesModel
+@{
+    
+}
+<div>
+    <h3 class="display-3">@Model.Maincategory.Name subcategories</h3>
+</div>
+@foreach (var subCategory in Model.Subcategories)
+{
+    <div class="lead">
+        <a asp-page="/Userthreads" asp-route-subCategoryId="@subCategory.Id" asp-route-mainCategoryId="@Model.DbSubCategories." class="nav-link text-dark">@subCategory.Name</a>
+    </div>
+
+}

@@ -4,7 +4,7 @@ public class MainCategoryManager
 {
     // API
 
-    private static Uri _baseAdress = new Uri("https://localhost:44342/");
+    private static Uri _baseAdress = new Uri("https://gamersparadiseapi.azurewebsites.net/");
 
     public static List<MainCategory> MainCategories { get; set; }
 

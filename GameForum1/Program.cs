@@ -12,6 +12,7 @@ public class Program
         var connectionString = builder.Configuration.GetConnectionString("GameForum1ContextConnection") ?? throw new InvalidOperationException("Connection string 'GameForum1ContextConnection' not found.");
 
         builder.Services.AddScoped<UserThread>();
+        builder.Services.AddScoped<List<UserThread>>();
 
         builder.Services.AddTransient<GameForum1Context>();
         builder.Services.AddTransient<MainCategory>();

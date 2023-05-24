@@ -44,6 +44,10 @@ namespace GameForum1.Pages
 
             return Page();
         }
+
+
+        //TODO: Fixa post för comment
+
         //public async Task<IActionResult> OnPostAsync(int userThreadId)
         //{
         //    UserThread = await DAL.UserThreadManager.GetOneUserThread(userThreadId);

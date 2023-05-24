@@ -9,7 +9,7 @@
 @foreach (var subCategory in Model.Subcategories)
 {
     <div class="lead">
-        <a asp-page="/Userthreads" asp-route-subCategoryId="@subCategory.Id" asp-route-mainCategoryId="@Model.DbSubCategories." class="nav-link text-dark">@subCategory.Name</a>
+        <a asp-page="/Userthreads" asp-route-subCategoryId="@subCategory.Id" class="nav-link text-dark">@subCategory.Name</a>
     </div>
 
 }

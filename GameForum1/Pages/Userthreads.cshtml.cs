@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace GameForum1.Pages
 {
@@ -12,11 +13,15 @@ namespace GameForum1.Pages
         
         private readonly UserManager<GameForum1User> _userManager;
 
-        public UserthreadsModel(GameForum1Context context, UserManager<GameForum1User> userManager)
+        private static UserThread _userThread;
+
+        public UserthreadsModel(GameForum1Context context, UserManager<GameForum1User> userManager, UserThread scopedUserthread, List<UserThread> scopedUserThreads)
         {
             _context = context;
-            UserThreads = new();            // vi tappar userthread?
+            //UserThreads = new();            // vi tappar userthread?
             _userManager = userManager;
+            UserThread= scopedUserthread;
+            UserThreads = scopedUserThreads;
         }
 
         public GameForum1User MyUser { get; set; }
@@ -27,6 +32,7 @@ namespace GameForum1.Pages
         public List<DbUserThread> DbUserThreads { get; set; }
         public async Task<IActionResult> OnGetAsync(int subCategoryId)
         {
+            
 
             MyUser = await _userManager.GetUserAsync(User);
 
@@ -67,7 +73,8 @@ namespace GameForum1.Pages
 
 
             //OnGetAsync(subCategoryId);
-            return Page();
+            //return RedirectToPage("/Userthreads" + subCategoryId);
+            return RedirectToPage("/Userthreads", new { SubcategoryId = subCategoryId });
         }
         public void SaveNewDbUserThreadToDataBase(int subCategoryId)
         {

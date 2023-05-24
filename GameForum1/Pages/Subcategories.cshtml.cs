@@ -1,3 +1,4 @@
+using GameForum1.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -15,22 +16,14 @@ namespace GameForum1.Pages
 
         public List<SubCategory> Subcategories { get; set; }
         public MainCategory Maincategory { get; set; }
-        public List<DbSubCategory> DbSubCategories { get; set; }
+        public List<SubCategory> DbSubCategories { get; set; }
         public async Task<IActionResult> OnGetAsync(int mainCategoryId)
         {
-            var allSubCategories = await DAL.SubCategoryManager.GetSubCategories();
-
-            DbSubCategories = _context.SubCategories.Where(x => x.MainCategoryId == mainCategoryId).ToList();
             var mainCategories = await DAL.MainCategoryManager.GetMainCategories();
-            Maincategory = mainCategories.Where(x => x.Id == mainCategoryId).FirstOrDefault();
-            //TODO: Lägga till så att frontend får med sig maincategory Id, så att vi kan lista det för ökad tydlighet
+            var subCategories = await SubCategoryManager.GetSubCategories();
 
-            for (int i = 0; i < DbSubCategories.Count; i++)
-            {
-                Subcategories.AddRange(allSubCategories.Where(x => x.Id == DbSubCategories[i].Id));
-            }
-
-
+            Maincategory = mainCategories.FirstOrDefault(x => x.Id == mainCategoryId);
+            Subcategories.AddRange(subCategories.Where(x => x.MainCategoryId == mainCategoryId));
 
             return Page();
         }

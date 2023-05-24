@@ -29,7 +29,6 @@ namespace GameForum1.Pages
         public UserThread UserThread { get; set; }
         public SubCategory SubCategory { get; set; }
         public List<UserThread> UserThreads { get; set; }
-        public List<DbUserThread> DbUserThreads { get; set; }
         public async Task<IActionResult> OnGetAsync(int subCategoryId)
         {
             

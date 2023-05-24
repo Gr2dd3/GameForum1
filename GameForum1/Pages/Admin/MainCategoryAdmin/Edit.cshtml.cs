@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using GameForum1.Data;
-using GameForum1.Models.DbModels;
-
-namespace GameForum1.Pages.Admin.MainCategoryAdmin
+﻿namespace GameForum1.Pages.Admin.MainCategoryAdmin
 {
-    /// <summary>
-    /// TODO: Mattias söndag - Lagt till kod i Edit MainCategory
-    /// Rad 72 till 83 för att den ska ändras även i API
-    /// </summary>
     public class EditModel : PageModel
     {
         private readonly GameForum1.Data.GameForum1Context _context;
@@ -25,7 +10,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
         }
 
         [BindProperty]
-        public DbMainCategory DbMainCategory { get; set; } = default!;
+        public MainCategory MainCategory { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -34,12 +19,6 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
                 return NotFound();
             }
 
-            var dbmaincategory =  await _context.MainCategories.FirstOrDefaultAsync(m => m.Id == id);
-            if (dbmaincategory == null)
-            {
-                return NotFound();
-            }
-            DbMainCategory = dbmaincategory;
             return Page();
         }
 
@@ -52,7 +31,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
                 return Page();
             }
 
-            _context.Attach(DbMainCategory).State = EntityState.Modified;
+            _context.Attach(MainCategory).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +39,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DbMainCategoryExists(DbMainCategory.Id))
+                if (!DbMainCategoryExists(MainCategory.Id))
                 {
                     return NotFound();
                 }
@@ -69,14 +48,9 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
                     throw;
                 }
             }
-            if (DbMainCategory is not null)
+            if (MainCategory is not null)
             {
-                var mainCategory = new MainCategory 
-                { 
-                    Id = DbMainCategory.Id,
-                    Name = DbMainCategory.Name
-                };
-                await DAL.MainCategoryManager.UpdateMainCategory(mainCategory);
+                await DAL.MainCategoryManager.UpdateMainCategory(MainCategory);
             }
 
             return RedirectToPage("./Index");

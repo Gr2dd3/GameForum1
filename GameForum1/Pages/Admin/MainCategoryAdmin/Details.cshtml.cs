@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using GameForum1.Data;
-using GameForum1.Models.DbModels;
-
-namespace GameForum1.Pages.Admin.MainCategoryAdmin
+﻿namespace GameForum1.Pages.Admin.MainCategoryAdmin
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +9,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
             _context = context;
         }
 
-      public DbMainCategory DbMainCategory { get; set; } = default!; 
+      public MainCategory MainCategory { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,7 +25,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
             }
             else 
             {
-                DbMainCategory = dbmaincategory;
+                MainCategory = dbmaincategory;
             }
             return Page();
         }

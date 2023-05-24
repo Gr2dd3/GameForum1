@@ -7,4 +7,7 @@ public class SubCategory
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
+
+    [JsonPropertyName("maincategoryid")]
+    public int MainCategoryId { get; set; }
 }

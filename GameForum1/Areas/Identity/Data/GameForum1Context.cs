@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using GameForum1.Models;
-using GameForum1.Models.DbModels;
 
 namespace GameForum1.Data;
 
@@ -22,9 +20,9 @@ public class GameForum1Context : IdentityDbContext<GameForum1User>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-    public virtual DbSet<DbComment> Comments { get; set; }
-    public virtual DbSet<DbMainCategory> MainCategories { get; set; }
-    public virtual DbSet<DbSubCategory> SubCategories { get; set; }
-    public virtual DbSet<DbUserThread> UserThreads { get; set; }
+    public virtual DbSet<Comment> Comments { get; set; }
+    public virtual DbSet<MainCategory> MainCategories { get; set; }
+    public virtual DbSet<SubCategory> SubCategories { get; set; }
+    public virtual DbSet<UserThread> UserThreads { get; set; }
     public virtual DbSet<DbPrivateMessage> PrivateMessages { get; set; }
 }

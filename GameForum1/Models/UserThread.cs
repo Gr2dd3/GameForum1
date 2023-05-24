@@ -16,4 +16,10 @@ public class UserThread
 
     [JsonPropertyName("date")]
     public DateTime Date { get; set; }
+
+    [JsonPropertyName("subcategoryid")]
+    public int SubCategoryId { get; set; }
+
+    [JsonPropertyName("userid")]
+    public string UserId { get; set; }
 }

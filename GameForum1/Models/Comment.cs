@@ -13,4 +13,10 @@ public class Comment
 
     [JsonPropertyName("date")]
     public DateTime Date { get; set; }
+
+    [JsonPropertyName("userthreadid")]
+    public int UserThreadId { get; set; }
+
+    [JsonPropertyName("userid")]
+    public string UserId { get; set; }
 }

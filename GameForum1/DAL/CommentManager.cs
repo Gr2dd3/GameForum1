@@ -2,7 +2,7 @@
 {
     public class CommentManager
     {
-        private static Uri _baseAdress = new Uri("https://localhost:44342/");
+        private static Uri _baseAdress = new Uri("https://gamersparadiseapi.azurewebsites.net/");
 
         public static List<Comment> Comments { get; set; }
         public static Comment Comment { get; set; }

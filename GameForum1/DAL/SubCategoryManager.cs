@@ -9,7 +9,7 @@
         /// </summary>
         /// <returns></returns>
         
-        private static Uri _baseAdress = new Uri("https://localhost:44342/");
+        private static Uri _baseAdress = new Uri("https://gamersparadiseapi.azurewebsites.net/");
 
         public static List<SubCategory> SubCategories { get; set; }
         public static SubCategory SubCategory { get; set; }

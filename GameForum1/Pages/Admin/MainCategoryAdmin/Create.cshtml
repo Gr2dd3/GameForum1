@@ -6,16 +6,16 @@
 
 <h1>Create</h1>
 
-<h4>DbMainCategory</h4>
+<h4>MainCategory</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DbMainCategory.Name" class="control-label"></label>
-                <input asp-for="DbMainCategory.Name" class="form-control" />
-                <span asp-validation-for="DbMainCategory.Name" class="text-danger"></span>
+                <label asp-for="MainCategory.Name" class="control-label"></label>
+                <input asp-for="MainCategory.Name" class="form-control" />
+                <span asp-validation-for="MainCategory.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary mt-3 mb-2" />
@@ -24,21 +24,6 @@
     </div>
 </div>
 
-@*<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.MainCategory.Name" class="control-label"></label>
-                <input asp-for="@Model.MainCategory.Name" class="form-control" />
-                <span asp-validation-for="@Model.MainCategory.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>*@
 
 <div>
     <a asp-page="Index">Back to List</a>

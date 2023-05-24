@@ -2,7 +2,7 @@
 {
     public class UserThreadManager
     {
-        private static Uri _baseAdress = new Uri("https://localhost:44342/");
+        private static Uri _baseAdress = new Uri("https://gamersparadiseapi.azurewebsites.net/");
 
         public static List<UserThread> UserThreads { get; set; }
         public static UserThread UserThread { get; set; }

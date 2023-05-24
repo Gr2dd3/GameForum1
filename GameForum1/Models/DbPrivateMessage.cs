@@ -1,4 +1,4 @@
-﻿namespace GameForum1.Models.DbModels;
+﻿namespace GameForum1.Models;
 
 public class DbPrivateMessage
 {

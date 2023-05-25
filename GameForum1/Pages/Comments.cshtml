@@ -1,36 +1,47 @@
 ﻿@page
 @model GameForum1.Pages.CommentsModel
 @inject SignInManager<GameForum1User> signInManager
+@inject UserManager<GameForum1User> userManager
 @{
-
+	var myUser = await userManager.GetUserAsync(User);
 }
 @if (signInManager.IsSignedIn(User))
 {
-    <h4 class="display-4">Create new comment </h4>
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Comment.Content" class="control-label">Enter text here...</label>
-            <textarea asp-for="Comment.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
-            <br />
-        </div>
+	<h4 class="display-4">Create new comment </h4>
+	<form method="post">
+		<div class="form-group">
+			<label asp-for="Comment.Content" class="control-label">Enter text here...</label>
+			<textarea asp-for="Comment.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+			<br />
+		</div>
 
 
-        <input type="submit" value="Submit comment">
-    </form>
-    <hr />
+		<input type="submit" value="Submit comment">
+	</form>
+	<hr />
 }
 
 <div>
-    <h5 class="display-5">@Model.UserThread.Header</h5>
-    <h5 class="display-5">@Model.UserThread.Content</h5>
+	<h5 class="display-5">@Model.UserThread.Header</h5>
+	<h5 class="display-5">@Model.UserThread.Content</h5>
 </div>
 
 @foreach (var comment in Model.Comments)
 {
-    <div class="lead">
-        <p>@comment.Score | @comment.Date | Author: @comment.UserId <button class="btn">Report this comment</button></p>
-        <div class="lead">@comment.Content</div>
-    </div>
+	@foreach (var thisUser in userManager.Users.ToList())
+	{
+		if (thisUser.Id == comment.UserId)
+		{
+			<div class="lead">
+				<p>@comment.Score | @comment.Date | Author: @thisUser.UserName <button class="btn">Report this comment</button></p>
+				<div class="lead">@comment.Content</div>
+			</div>
+		}
+	}
+@*	<div class="lead">
+		<p>@comment.Score | @comment.Date | Author: @comment.UserId <button class="btn">Report this comment</button></p>
+		<div class="lead">@comment.Content</div>
+	</div>*@
 
 }
 

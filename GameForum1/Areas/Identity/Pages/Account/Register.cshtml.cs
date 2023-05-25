@@ -24,6 +24,8 @@ namespace GameForum1.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        private readonly GameForum1Context _context;    //new
+        private readonly IWebHostEnvironment _webHostEnvironment;  //new
         private readonly SignInManager<GameForum1User> _signInManager;
         private readonly UserManager<GameForum1User> _userManager;
         private readonly IUserStore<GameForum1User> _userStore;
@@ -32,6 +34,8 @@ namespace GameForum1.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
+            GameForum1Context context,               //new
+            IWebHostEnvironment webHostEnvironment, // new
             UserManager<GameForum1User> userManager,
             IUserStore<GameForum1User> userStore,
             SignInManager<GameForum1User> signInManager,
@@ -44,7 +48,13 @@ namespace GameForum1.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _webHostEnvironment = webHostEnvironment;  //new
+            _context = context;                        //new
         }
+        [BindProperty]
+        public FileViewModel FileUpload { get; set; }       // Filuppladdare
+
+        public GameForum1User MyUser { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -125,6 +135,9 @@ namespace GameForum1.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            
+
+
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -160,6 +173,41 @@ namespace GameForum1.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    if (FileUpload.FormFile.Length > 0)  //Upload file to folder
+                    {
+                        using (var stream = new FileStream(Path.Combine(_webHostEnvironment.WebRootPath, "uploadfiles", FileUpload.FormFile.FileName), FileMode.Create))
+                        {
+                            await FileUpload.FormFile.CopyToAsync(stream);
+                        }
+                    }
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await FileUpload.FormFile.CopyToAsync(memoryStream);
+
+                        //Upload if less that 2 MB
+                        if (memoryStream.Length < 2097152)
+                        {
+                            var file = new AppFile()
+                            {
+                                UserId = user.Id,
+                                FileName = FileUpload.FormFile.FileName,
+                                Content = memoryStream.ToArray()
+                            };
+                            _context.File.Add(file);
+
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("File", "File can't be larger than 2MB.");
+                        }
+                    }
+
+
+
+
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -174,8 +222,7 @@ namespace GameForum1.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
-
+            }            
             // If we got this far, something failed, redisplay form
             return Page();
         }

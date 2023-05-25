@@ -20,7 +20,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.MainCategories == null)
+            if (id == null /*|| _context.MainCategories == null*/)
             {
                 return NotFound();
             }
@@ -29,7 +29,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.MainCategories == null)
+            if (id == null /*|| _context.MainCategories == null*/)
             {
                 return NotFound();
             }

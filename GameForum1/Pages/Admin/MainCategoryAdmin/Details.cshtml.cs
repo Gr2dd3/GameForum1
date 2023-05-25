@@ -13,20 +13,20 @@
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.MainCategories == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.MainCategories == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var dbmaincategory = await _context.MainCategories.FirstOrDefaultAsync(m => m.Id == id);
-            if (dbmaincategory == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                MainCategory = dbmaincategory;
-            }
+            //var dbmaincategory = await _context.MainCategories.FirstOrDefaultAsync(m => m.Id == id);
+            //if (dbmaincategory == null)
+            //{
+            //    return NotFound();
+            //}
+            //else 
+            //{
+            //    MainCategory = dbmaincategory;
+            //}
             return Page();
         }
     }

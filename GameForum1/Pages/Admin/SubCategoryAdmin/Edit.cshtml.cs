@@ -44,10 +44,5 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
             }
             return Page();
         }
-
-        private bool DbSubCategoryExists(int id)
-        {
-            return (_context.SubCategories?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }

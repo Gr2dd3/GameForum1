@@ -22,10 +22,10 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 
         public async Task OnGetAsync()
         {
-            if (_context.SubCategories is not null)
-            {
-                //DbSubCategory = await _context.SubCategories.ToListAsync();
-            }
+            //if (_context.SubCategories is not null)
+            //{
+            //    //DbSubCategory = await _context.SubCategories.ToListAsync();
+            //}
             SubCategories = await DAL.SubCategoryManager.GetSubCategories();
         }
     }

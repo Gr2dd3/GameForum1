@@ -8,6 +8,6 @@ public class SubCategory
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonPropertyName("maincategoryid")]
+    [JsonPropertyName("mainCategoryId")]
     public int MainCategoryId { get; set; }
 }

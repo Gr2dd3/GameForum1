@@ -14,7 +14,11 @@
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.MainCategories == null)
+            var foundMainCategory = await DAL.MainCategoryManager.GetMainCategories();
+
+            MainCategory = foundMainCategory.FirstOrDefault(x => x.Id == id);
+
+            if (id == null || foundMainCategory == null)
             {
                 return NotFound();
             }
@@ -22,43 +26,19 @@
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            _context.Attach(MainCategory).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DbMainCategoryExists(MainCategory.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            
             if (MainCategory is not null)
             {
                 await DAL.MainCategoryManager.UpdateMainCategory(MainCategory);
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool DbMainCategoryExists(int id)
-        {
-          return (_context.MainCategories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -11,19 +11,22 @@ namespace GameForum1.Pages
         public SubcategoriesModel(GameForum1Context context)
         {
             _context = context;
-            Subcategories = new();
+            SubCategories = new();
         }
 
-        public List<SubCategory> Subcategories { get; set; }
+        public List<SubCategory> SubCategories { get; set; }
         public MainCategory Maincategory { get; set; }
-        public List<SubCategory> DbSubCategories { get; set; }
         public async Task<IActionResult> OnGetAsync(int mainCategoryId)
         {
-            var mainCategories = await DAL.MainCategoryManager.GetMainCategories();
-            var subCategories = await SubCategoryManager.GetSubCategories();
+            var apiMainCategories = await DAL.MainCategoryManager.GetMainCategories();
+            var apiSubCategories = await SubCategoryManager.GetSubCategories();
 
-            Maincategory = mainCategories.FirstOrDefault(x => x.Id == mainCategoryId);
-            Subcategories.AddRange(subCategories.Where(x => x.MainCategoryId == mainCategoryId));
+            
+            
+            Maincategory = apiMainCategories.FirstOrDefault(x => x.Id == mainCategoryId);
+
+           SubCategories.AddRange(apiSubCategories.Where(x => x.MainCategoryId == mainCategoryId));
+            
 
             return Page();
         }

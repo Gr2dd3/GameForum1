@@ -2,10 +2,6 @@
 
 public class CreateModel : PageModel
 {
-    /// <summary>
-    /// TODO: CREATE Funkar bra, rätt ID's överallt.
-    /// </summary>
-
     private readonly GameForum1Context _context;
 
     public CreateModel(GameForum1.Data.GameForum1Context context)
@@ -26,39 +22,12 @@ public class CreateModel : PageModel
     {
         var subCategories = await DAL.SubCategoryManager.GetSubCategories();
 
-        var existingSubCategory = subCategories.Where(x => x.Name.ToLower() == SubCategory.Name.ToLower()).FirstOrDefault();
-
-
-        if (ModelState.IsValid && _context.SubCategories is not null && existingSubCategory is null)
+        if (ModelState.IsValid)
         {
-            if (SubCategory is not null)
-            {
-                SaveNewDbSubCategoryToDataBase(mainCategoryId);
-                var subCategoryId = _context.SubCategories.ToList().TakeLast(1).Select(x => x.Id).FirstOrDefault();
-                SubCategory.Id = subCategoryId;
-                await DAL.SubCategoryManager.CreateSubCategory(SubCategory);
-            }
-
+            SubCategory.MainCategoryId = mainCategoryId;
+            await DAL.SubCategoryManager.CreateSubCategory(SubCategory);
         }
 
         return RedirectToPage("./Index");
     }
-
-    public void SaveNewDbSubCategoryToDataBase(int mainCategoryId)
-    {
-        var existingCategory = _context.SubCategories.Where(x => x.Id == SubCategory.Id).FirstOrDefault();
-
-        if (existingCategory is null)
-        {
-            var newDbSubCategory = new DbSubCategory
-            {
-                Id = SubCategory.Id,
-                MainCategoryId = mainCategoryId
-            };
-
-            _context.SubCategories.Add(newDbSubCategory);
-            _context.SaveChanges();
-        }
-    }
-
 }

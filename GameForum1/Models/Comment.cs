@@ -11,12 +11,12 @@ public class Comment
     [JsonPropertyName("content")]
     public string Content { get; set; }
 
-    [JsonPropertyName("date")]
+    [JsonPropertyName("createdDate")]
     public DateTime Date { get; set; }
 
-    [JsonPropertyName("userthreadid")]
+    [JsonPropertyName("userThreadId")]
     public int UserThreadId { get; set; }
 
-    [JsonPropertyName("userid")]
+    [JsonPropertyName("userId")]
     public string UserId { get; set; }
 }

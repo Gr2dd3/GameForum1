@@ -13,10 +13,8 @@
 
         public async Task OnGetAsync()
         {
-            if (_context.MainCategories != null)
-            {
-                MainCategory = await _context.MainCategories.ToListAsync();
-            }
+               //MainCategory = await _context.MainCategories.ToListAsync();
+               MainCategory = await DAL.MainCategoryManager.GetMainCategories();
         }
     }
 }

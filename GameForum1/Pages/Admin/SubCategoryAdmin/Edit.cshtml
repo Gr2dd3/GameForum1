@@ -9,45 +9,23 @@
 
 <h4>SubCategory</h4>
 <hr />
-@*<div class="row">
+
+<div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DbSubCategory.Id" />
+            <input type="hidden" asp-for="SubCategory.Id" />
             <div class="form-group">
-                <label asp-for="DbSubCategory.MainCategoryId" class="control-label"></label>
-                <input asp-for="DbSubCategory.MainCategoryId" class="form-control" />
-                <span asp-validation-for="DbSubCategory.MainCategoryId" class="text-danger"></span>
+                <label asp-for="SubCategory.Name" class="control-label"></label>
+                <input asp-for="SubCategory.Name" class="form-control" />
+                <span asp-validation-for="SubCategory.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary mt-3 mb-2" />
             </div>
         </form>
     </div>
-</div>*@
-@if (Model.WarningForNonExistingDbSubCategory is null)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="SubCategory.Id" />
-                <div class="form-group">
-                    <label asp-for="SubCategory.Name" class="control-label"></label>
-                    <input asp-for="SubCategory.Name" class="form-control" />
-                    <span asp-validation-for="SubCategory.Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary mt-3 mb-2" />
-                </div>
-            </form>
-        </div>
-    </div>
-}
-else
-{
-    <div class="alert alert-danger">@Model.WarningForNonExistingDbSubCategory</div>
-}
+</div>
 
 <div>
     <a asp-page="./Index">Back to List</a>

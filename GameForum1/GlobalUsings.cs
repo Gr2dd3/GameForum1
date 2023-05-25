@@ -11,7 +11,6 @@ global using System.Collections.Generic;
 global using System.Linq;
 global using System.Threading.Tasks;
 global using Microsoft.AspNetCore.Mvc.Rendering;
-global using GameForum1.Models.DbModels;
 global using GameForum1.Models;
 global using System.Text.Json;
 

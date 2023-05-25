@@ -3,6 +3,8 @@
 @{
     List<MainCategory> mainCategories = await DAL.MainCategoryManager.GetMainCategories();
     ViewData["Title"] = "Create";
+
+    var chosenMainCategoryId = 0;
 }
 
 <h1>Create</h1>
@@ -21,12 +23,12 @@
                 {
                     <a asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
                 }
-
+                
                 <br />
                 <br />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    
+                    @*Lägga till Id så man ser vilken main cat man valt*@
                     <label asp-for="@Model.SubCategory.Name" class="control-label"></label>
                     <input asp-for="@Model.SubCategory.Name" class="form-control" />
                     <span asp-validation-for="@Model.SubCategory.Name" class="text-danger"></span>

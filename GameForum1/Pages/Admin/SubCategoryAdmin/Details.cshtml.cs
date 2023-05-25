@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GameForum1.Data;
-using GameForum1.Models.DbModels;
 
 namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {

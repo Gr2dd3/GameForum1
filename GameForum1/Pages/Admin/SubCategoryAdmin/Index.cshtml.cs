@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GameForum1.Data;
-using GameForum1.Models.DbModels;
 
 namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {
@@ -19,14 +18,13 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
             _context = context;
         }
 
-        public IList<DbSubCategory> DbSubCategory { get;set; } = default!;
         public List<SubCategory> SubCategories { get; set; }
 
         public async Task OnGetAsync()
         {
             if (_context.SubCategories is not null)
             {
-                DbSubCategory = await _context.SubCategories.ToListAsync();
+                //DbSubCategory = await _context.SubCategories.ToListAsync();
             }
             SubCategories = await DAL.SubCategoryManager.GetSubCategories();
         }

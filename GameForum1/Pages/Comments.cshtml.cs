@@ -22,74 +22,17 @@ namespace GameForum1.Pages
         public Comment Comment { get; set; }
         public UserThread UserThread { get; set; }
         public List<Comment> Comments { get; set; }
-        public List<DbComment> DbComments { get; set; }
+        //public List<DbComment> DbComments { get; set; }
         public async Task<IActionResult> OnGetAsync(int userThreadId)
         {
 
             MyUser = await _userManager.GetUserAsync(User);
 
-            var allComments = await DAL.CommentManager.GetComments();
-
-            DbComments = _context.Comments.Where(x => x.UserThreadId == userThreadId).ToList();
+            Comments = await DAL.CommentManager.GetComments();
 
             UserThread = await DAL.UserThreadManager.GetOneUserThread(userThreadId);
 
-
-            for (int i = 0; i < DbComments.Count; i++)
-            {
-                Comments.AddRange(allComments.Where(x => x.Id == DbComments[i].Id));
-            }
-
-
-
             return Page();
         }
-
-
-        //TODO: Fixa post för comment
-
-        //public async Task<IActionResult> OnPostAsync(int userThreadId)
-        //{
-        //    UserThread = await DAL.UserThreadManager.GetOneUserThread(userThreadId);
-
-
-
-
-        //    SaveNewDbCommentToDataBase(userThreadId);
-
-        //    var userThreadId = _context.UserThreads.ToList().TakeLast(1).Select(x => x.Id).FirstOrDefault();
-
-        //    UserThread.Id = userThreadId;
-        //    UserThread.Date = DateTime.Now;
-        //    // score +-
-        //    await DAL.UserThreadManager.CreateUserThread(UserThread);
-
-
-
-
-
-        //    //OnGetAsync(subCategoryId);
-        //    return Page();
-        //}
-        public void SaveNewDbCommentToDataBase(int subCategoryId)
-        {
-            var existingDbUserThread = _context.UserThreads.Where(x => x.Id == UserThread.Id).FirstOrDefault();
-
-            if (existingDbUserThread is null)
-            {
-                var _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                var newDBUserThread = new DbUserThread()
-                {
-                    Id = UserThread.Id,
-                    SubCategoryId = subCategoryId,
-                    UserId = _userId
-
-                };
-                _context.UserThreads.Add(newDBUserThread);
-                _context.SaveChanges();
-            }
-        }
-
     }
 }

@@ -28,7 +28,7 @@
 @foreach (var comment in Model.Comments)
 {
     <div class="lead">
-        <p>@comment.Score | @comment.Date | Author: @comment.UserId</p>
+        <p>@comment.Score | @comment.Date | Author: @comment.UserId <button class="btn">Report this comment</button></p>
         <div class="lead">@comment.Content</div>
     </div>
 

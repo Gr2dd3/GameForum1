@@ -24,9 +24,10 @@ namespace GameForum1.Pages
         public Comment Comment { get; set; }
         public UserThread UserThread { get; set; }
         public List<Comment> Comments { get; set; }
+		public string ImageSrc { get; set; }
 
-        // GET COMMENTS FOR SELECTED USERTHREAD
-        public async Task<IActionResult> OnGetAsync(int userThreadId)
+		// GET COMMENTS FOR SELECTED USERTHREAD
+		public async Task<IActionResult> OnGetAsync(int userThreadId)
         {
             MyUser = await _userManager.GetUserAsync(User);
 

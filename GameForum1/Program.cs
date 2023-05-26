@@ -1,5 +1,6 @@
 
 
+using GameForum1.DAL;
 using GameForum1.Models;
 
 namespace GameForum1;
@@ -14,6 +15,7 @@ public class Program
         builder.Services.AddScoped<UserThread>();
         builder.Services.AddScoped<List<UserThread>>();
 
+        builder.Services.AddTransient<ProfilePictureManager>();
         builder.Services.AddTransient<GameForum1Context>();
         builder.Services.AddTransient<MainCategory>();
         builder.Services.AddTransient<List<MainCategory>>();

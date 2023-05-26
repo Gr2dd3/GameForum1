@@ -2,6 +2,7 @@
 @model GameForum1.Pages.CommentsModel
 @inject SignInManager<GameForum1User> signInManager
 @inject UserManager<GameForum1User> userManager
+@inject DAL.ProfilePictureManager profilePictureManager
 @{
 	var myUser = await userManager.GetUserAsync(User);
 }
@@ -26,15 +27,36 @@
 	<h5 class="display-5">@Model.UserThread.Content</h5>
 </div>
 
+
+
+
 @foreach (var comment in Model.Comments)
 {
 	@foreach (var thisUser in userManager.Users.ToList())
 	{
 		if (thisUser.Id == comment.UserId)
 		{
-			<div class="lead">
-				<p>@comment.Score | @comment.Date | Author: @thisUser.UserName <button class="btn">Report this comment</button></p>
-				<div class="lead">@comment.Content</div>
+			<div class="card my-2 mx-auto">
+				@{
+					Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+				}
+				<img src="@Model.ImageSrc" class="card-img-top">
+
+
+				<div class="card-body">
+					<div class="text-section">
+						<h5 class="card-title fw-bold">@comment.Content</h5>
+						<div class="align-text-bottom">
+							<p>hejhejhejhejhej</p>
+						</div>
+					</div>
+					<div class="cta-section">
+						<p>Author: @thisUser.NickName</p>
+						<div>@comment.Date</div>
+						@*<a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>*@
+						<a class="btn btn-light" href="" style="z-index:2">Report</a>
+					</div>
+				</div>
 			</div>
 		}
 	}

@@ -20,8 +20,6 @@ public class IndexModel : PageModel
     [BindProperty]
     public string ImageSrc { get; set; }
 
-    [BindProperty]
-    public Image MyImage { get; set; }
     public async Task OnGet()
     {
         MyUser = await _userManager.GetUserAsync(User);
@@ -37,7 +35,35 @@ public class IndexModel : PageModel
             {
                 ImageSrc = string.Format("data:{0};base64,{1}", "jpg", Convert.ToBase64String(ProfilePicture.Content));
             }
+            else
+            {
+                ImageSrc = "/img/defaultProfile.jpg";
+            }
+            
         }
 
+    }
+    public async Task GetProfilePicture()
+    {
+        MyUser = await _userManager.GetUserAsync(User);
+
+        if (_signInManager.IsSignedIn(User))
+        {
+            ProfilePicture = _context.File.Where(x => x.UserId == MyUser.Id).FirstOrDefault();
+
+            if (ProfilePicture is not null)
+            {
+                ImageSrc = string.Format("data:{0};base64,{1}", "jpg", Convert.ToBase64String(ProfilePicture.Content));
+            }
+            else
+            {
+                ImageSrc = "/img/defaultProfile.jpg";
+            }
+
+        }
+        else
+        {
+            ImageSrc = "/img/defaultProfile.jpg";
+        }
     }
 }

@@ -2,57 +2,68 @@
 @model GameForum1.Pages.UserthreadsModel
 @inject SignInManager<GameForum1User> signInManager
 @inject UserManager<GameForum1User> userManager
+@inject DAL.ProfilePictureManager profilePictureManager
 @{
-	var myUser = await userManager.GetUserAsync(User);
+    //var profilePictures = await profilePictureManager.GetProfilePictures();
+    var myUser = await userManager.GetUserAsync(User);
+    //byte[] imgContent;
+
+
 }
 
 @if (signInManager.IsSignedIn(User))
 {
-	<h4 class="display-4">Create new thread </h4>
-	<form method="post">
-		<div class="form-group">
-			@*<a asp-route-subCategoryId="@Model.SubCategory.Id" type="hidden"></a>*@
-			<label asp-for="UserThread.Header" class="control-label">Please enter Header</label>
-			<input asp-for="UserThread.Header" class="form-control" />
-			<span asp-validation-for="UserThread.Header" class="text-danger"></span>
-		</div>
-		<div class="form-group">
-			<label asp-for="UserThread.Content" class="control-label">Enter text here...</label>
-			<textarea asp-for="UserThread.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
-			<br />
-		</div>
+    <h4 class="display-4">Create new thread </h4>
+    <form method="post">
+        <div class="form-group">
+            @*<a asp-route-subCategoryId="@Model.SubCategory.Id" type="hidden"></a>*@
+            <label asp-for="UserThread.Header" class="control-label">Please enter Header</label>
+            <input asp-for="UserThread.Header" class="form-control" />
+            <span asp-validation-for="UserThread.Header" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserThread.Content" class="control-label">Enter text here...</label>
+            <textarea asp-for="UserThread.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+            <br />
+        </div>
 
 
-		<input type="submit" value="Submit thread">
-	</form>
-	<hr />
+        <input type="submit" value="Submit thread">
+    </form>
+    <hr />
 }
 
 <div>
-	<h3 class="display-3">@Model.SubCategory.Name user threads</h3>
+    <h3 class="display-3">@Model.SubCategory.Name user threads</h3>
 </div>
 
 @foreach (var userThread in Model.UserThreads)
 {
-	@foreach (var thisUser in userManager.Users.ToList())
-	{
-		if (thisUser.Id == userThread.UserId)
-		{
-			<div class="card my-2 mx-auto">
-				
-				<img src="~/uploadFiles/yeti_confused.jpg" class="card-img-top">
-				<div class="card-body">
-					<div class="text-section">
-						<h5 class="card-title fw-bold">@userThread.Header</h5>
-						<p class="card-text">Author: @thisUser.NickName</p>
-					</div>
-					<div class="cta-section">
-						<div>@userThread.Date</div>
-						<a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
-						<a class="btn btn-light" href="" style="z-index:2">Report</a>
-					</div>
-				</div>
-			</div>
-		}
-	}
+    @foreach (var thisUser in userManager.Users.ToList())
+    {
+
+
+        if (thisUser.Id == userThread.UserId)
+        {
+            <div class="card my-2 mx-auto">
+                @{
+                    Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                }
+                <img src="@Model.ImageSrc" class="card-img-top">
+
+
+                <div class="card-body">
+                    <div class="text-section">
+                        <h5 class="card-title fw-bold">@userThread.Header</h5>
+                        <p class="card-text">Author: @thisUser.NickName</p>
+                    </div>
+                    <div class="cta-section">
+                        <div>@userThread.Date</div>
+                        <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
+                        <a class="btn btn-light" href="" style="z-index:2">Report</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }

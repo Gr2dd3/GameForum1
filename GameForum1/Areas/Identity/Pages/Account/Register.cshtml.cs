@@ -188,6 +188,9 @@ namespace GameForum1.Areas.Identity.Pages.Account
                         //Upload if less that 2 MB
                         if (memoryStream.Length < 2097152)
                         {
+
+                          
+
                             var file = new AppFile()
                             {
                                 UserId = user.Id,

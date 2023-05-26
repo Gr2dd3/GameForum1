@@ -13,5 +13,6 @@ global using System.Threading.Tasks;
 global using Microsoft.AspNetCore.Mvc.Rendering;
 global using GameForum1.Models;
 global using System.Text.Json;
+global using System.Drawing;
 
 

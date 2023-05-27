@@ -4,66 +4,89 @@
 @inject UserManager<GameForum1User> userManager
 @inject DAL.ProfilePictureManager profilePictureManager
 @{
-	var myUser = await userManager.GetUserAsync(User);
-}
-@if (signInManager.IsSignedIn(User))
-{
-	<h4 class="display-4">Create new comment </h4>
-	<form method="post">
-		<div class="form-group">
-			<label asp-for="Comment.Content" class="control-label">Enter text here...</label>
-			<textarea asp-for="Comment.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
-			<br />
-		</div>
-
-
-		<input type="submit" value="Submit comment">
-	</form>
-	<hr />
+    var myUser = await userManager.GetUserAsync(User);
 }
 
-<div>
-	<h5 class="display-5">@Model.UserThread.Header</h5>
-	<h5 class="display-5">@Model.UserThread.Content</h5>
+
+<div class="card cardbig my-2 mx-auto">
+    @{
+        Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.UserThread.UserId);
+    }
+    <img src="@Model.ImageSrc" class="card-img-top">
+
+    <div class="card-body">
+        <div class="text-section">
+            <h5 class="fw-bold">@Model.UserThread.Header</h5>
+            <p class="card-text py-5">@Model.UserThread.Content</p>
+            <p class="card-text position-absolute bottom-0 start-20 py-1">Author: placeholder</p>  @* ful-lösning på author position*@
+        </div>
+        <div class="cta-section">
+            <div>@Model.UserThread.Date</div>
+
+            <span>
+                <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add comment
+                </button>
+            <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
+            </span>
+
+        </div>
+    </div>
 </div>
 
+@if (signInManager.IsSignedIn(User))
+{
 
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add comment</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label asp-for="Comment.Content" class="control-label">Enter text here...</label>
+                            <textarea asp-for="Comment.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Submit comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @foreach (var comment in Model.Comments)
 {
-	@foreach (var thisUser in userManager.Users.ToList())
-	{
-		if (thisUser.Id == comment.UserId)
-		{
-			<div class="card my-2 mx-auto">
-				@{
-					Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
-				}
-				<img src="@Model.ImageSrc" class="card-img-top">
+    @foreach (var thisUser in userManager.Users.ToList())
+    {
+        if (thisUser.Id == comment.UserId)
+        {
+            <div class="card my-2 mx-auto">
+                @{
+                    Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                }
+                <img src="@Model.ImageSrc" class="card-img-top">
 
-
-				<div class="card-body">
-					<div class="text-section">
-						<h5 class="card-title fw-bold">@comment.Content</h5>
-						<div class="align-text-bottom">
-							<p>hejhejhejhejhej</p>
-						</div>
-					</div>
-					<div class="cta-section">
-						<p>Author: @thisUser.NickName</p>
-						<div>@comment.Date</div>
-						@*<a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>*@
-						<a class="btn btn-light" href="" style="z-index:2">Report</a>
-					</div>
-				</div>
-			</div>
-		}
-	}
-@*	<div class="lead">
-		<p>@comment.Score | @comment.Date | Author: @comment.UserId <button class="btn">Report this comment</button></p>
-		<div class="lead">@comment.Content</div>
-	</div>*@
+                <div class="card-body">
+                    <div class="text-section">
+                        <h5 class="card-title fw-bold">@comment.Content</h5>
+                    </div>
+                    <div class="cta-section">
+                        <p class="">Author: @thisUser.NickName</p>
+                        <div>@comment.Date</div>
+                        @*<a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>*@
+                        <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 
 }
 

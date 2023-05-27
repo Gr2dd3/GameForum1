@@ -2,15 +2,135 @@ html {
     font-size: 14px;
 }
 
+    html body {
+        background-color: rgb(245, 249, 255)
+    }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+button {
+    appearance: auto;
+    writing-mode: horizontal-tb !important;
+    font-style:;
+    font-variant-ligatures:;
+    font-variant-caps:;
+    font-variant-numeric:;
+    font-variant-east-asian:;
+    font-variant-alternates:;
+    font-weight:;
+    font-stretch:;
+    font-size:;
+    font-family:;
+    font-optical-sizing:;
+    font-kerning:;
+    font-feature-settings:;
+    font-variation-settings:;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding: 1px 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
 }
+
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+}
+
+.btn-primary {
+    --mdb-btn-bg: #3b71ca;
+    --mdb-btn-color: #fff;
+    --mdb-btn-box-shadow: 0 4px 9px -4px #3b71ca;
+    --mdb-btn-hover-bg: #386bc0;
+    --mdb-btn-hover-color: #fff;
+    --mdb-btn-focus-bg: #386bc0;
+    --mdb-btn-focus-color: #fff;
+    --mdb-btn-active-bg: #3566b6;
+    --mdb-btn-active-color: #fff;
+}
+
+.btn {
+    --mdb-btn-padding-x: 1.5rem;
+    --mdb-btn-padding-y: 0.375rem;
+    --mdb-btn-font-size: 0.75rem;
+    --mdb-btn-font-weight: 500;
+    --mdb-btn-line-height: 1.5;
+    --mdb-btn-color: #4f4f4f;
+    --mdb-btn-bg: transparent;
+    --mdb-btn-border-width: 2px;
+    --mdb-btn-border-color: transparent;
+    --mdb-btn-hover-border-color: transparent;
+    --mdb-btn-disabled-opacity: 0.65;
+    --mdb-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--mdb-btn-focus-shadow-rgb),0.5);
+    display: inline-block;
+    padding: var(--mdb-btn-padding-y) var(--mdb-btn-padding-x);
+    font-family: var(--mdb-btn-font-family);
+    font-size: var(--mdb-btn-font-size);
+    font-weight: var(--mdb-btn-font-weight);
+    line-height: var(--mdb-btn-line-height);
+    color: var(--mdb-btn-color);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: var(--mdb-btn-border-width) solid var(--mdb-btn-border-color);
+    background-color: var(--mdb-btn-bg);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-primary {
+    --mdb-btn-border-color: #3b71ca;
+    --mdb-btn-hover-border-color: #2f5aa2;
+    --mdb-btn-focus-shadow-rgb: 88,134,210;
+    --mdb-btn-active-border-color: #2c5598;
+    --mdb-btn-active-shadow: 0 8px 9px -4px rgba(0,0,0,0.15),0 4px 18px 0 rgba(0,0,0,0.1);
+    --mdb-btn-disabled-color: #fff;
+    --mdb-btn-disabled-bg: #3b71ca;
+    --mdb-btn-disabled-border-color: #3b71ca;
+}
+
+.btn {
+    --mdb-btn-padding-top: 0.625rem;
+    --mdb-btn-padding-bottom: 0.5rem;
+    --mdb-btn-border-width: 0;
+    --mdb-btn-border-color: none;
+    --mdb-btn-border-radius: 0.25rem;
+    --mdb-btn-box-shadow: 0 4px 9px -4px rgba(0,0,0,0.35);
+    --mdb-btn-hover-box-shadow: 0 8px 9px -4px rgba(0,0,0,0.15),0 4px 18px 0 rgba(0,0,0,0.1);
+    --mdb-btn-focus-box-shadow: 0 8px 9px -4px rgba(0,0,0,0.15),0 4px 18px 0 rgba(0,0,0,0.1);
+    --mdb-btn-active-box-shadow: 0 8px 9px -4px rgba(0,0,0,0.15),0 4px 18px 0 rgba(0,0,0,0.1);
+    padding-top: var(--mdb-btn-padding-top);
+    padding-bottom: var(--mdb-btn-padding-bottom);
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border: 0;
+    border-radius: var(--mdb-btn-border-radius);
+    box-shadow: var(--mdb-btn-box-shadow);
+}
+
+    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
 
 html {
     position: relative;
@@ -25,17 +145,33 @@ body {
     flex-direction: row;
     max-width: 60em;
     border: 0;
-    background-color: #696969;
+    background-color: #7EA2AA;
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
 }
 
-    .card img {
-        max-width: 25%;
-        margin: auto;
-        padding: 0.5em;
-        border-radius: 0.7em;
-    }
+.cardbig {
+    border: 0;
+    flex-direction: row;
+    max-width: 65em;
+    background-color: #303633;
+    color: #fff;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
+
+.card img {
+    max-width: 25%;
+    margin: auto;
+    padding: 0.5em;
+    border-radius: 0.7em;
+}
+
+.cardbig img {
+    max-width: 25%;
+    margin: auto;
+    padding: 0.5em;
+    border-radius: 0.7em;
+}
 
 .card-body {
     display: flex;
@@ -55,7 +191,7 @@ body {
     justify-content: space-between;
 }
 
-.cta-fastbattre{
+.cta-fastbattre {
     max-width: 40%;
     display: flex;
     flex-direction: column;
@@ -63,11 +199,11 @@ body {
     justify-content: space-between;
 }
 
-    .cta-section .btn {
-        padding: 0.2em 0.5em;
-        font-size: 1em;
-        color: #696969;
-    }
+.cta-section .btn {
+    padding: 0.2em 0.5em;
+    font-size: 1em;
+    color: #696969;
+}
 
 .card-text {
     letter-spacing: 0.1em;

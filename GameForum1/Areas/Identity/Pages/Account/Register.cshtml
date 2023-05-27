@@ -48,8 +48,8 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="FileUpload.FormFile" class="form-control" aria-required="true" type="file" />
-                <span asp-validation-for="FileUpload.FormFile" class="text-danger"></span>
+                <input asp-for="Input.FileUpload.FormFile" class="form-control" aria-required="false" type="file" />
+                <span asp-validation-for="Input.FileUpload.FormFile" class="text-danger"></span>
             </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>

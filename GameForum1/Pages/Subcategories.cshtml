@@ -3,13 +3,16 @@
 @{
     
 }
-<div>
-    <h3 class="display-3">@Model.Maincategory.Name subcategories</h3>
+<div class="text-center">
+    <h3 class="display-3 fw-bold">@Model.Maincategory.Name subcategories</h3>
 </div>
+
 @foreach (var subCategory in Model.SubCategories)
 {
-    <div class="lead">
-        <a asp-page="/Userthreads" asp-route-subCategoryId="@subCategory.Id" class="nav-link text-dark">@subCategory.Name</a>
+    <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+            <a asp-page="/Userthreads" asp-route-subCategoryId="@subCategory.Id" class="nav-link text-dark">@subCategory.Name</a>
+        </button>
     </div>
-
 }
+

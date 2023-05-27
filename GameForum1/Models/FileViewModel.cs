@@ -2,6 +2,6 @@
 {
     public class FileViewModel
     {
-        public IFormFile FormFile { get; set; }
+        public IFormFile? FormFile { get; set; }
     }
 }

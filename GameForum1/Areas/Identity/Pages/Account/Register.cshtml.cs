@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GameForum1.Areas.Identity.Pages.Account
 {
@@ -51,8 +52,7 @@ namespace GameForum1.Areas.Identity.Pages.Account
             _webHostEnvironment = webHostEnvironment;  //new
             _context = context;                        //new
         }
-        [BindProperty]
-        public FileViewModel FileUpload { get; set; }       // Filuppladdare
+        
 
         public GameForum1User MyUser { get; set; }
 
@@ -81,6 +81,10 @@ namespace GameForum1.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [BindProperty]
+            public FileViewModel FileUpload { get; set; }
+
+
             [Required]
             [Display(Name = "First name")]
             public string FirstName { get; set; }
@@ -135,7 +139,7 @@ namespace GameForum1.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            
+
 
 
             returnUrl ??= Url.Content("~/");
@@ -173,41 +177,45 @@ namespace GameForum1.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (FileUpload.FormFile.Length > 0)  //Upload file to folder
+                    if (Input.FileUpload != null)
                     {
-                        using (var stream = new FileStream(Path.Combine(_webHostEnvironment.WebRootPath, "uploadfiles", FileUpload.FormFile.FileName), FileMode.Create))
+
+                        if (Input.FileUpload.FormFile.Length > 0)  //Upload file to folder
                         {
-                            await FileUpload.FormFile.CopyToAsync(stream);
-                        }
-                    }
-
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await FileUpload.FormFile.CopyToAsync(memoryStream);
-
-                        //Upload if less that 2 MB
-                        if (memoryStream.Length < 2097152)
-                        {
-
-                          
-
-                            var file = new AppFile()
+                            using (var stream = new FileStream(Path.Combine(_webHostEnvironment.WebRootPath, "uploadfiles", Input.FileUpload.FormFile.FileName), FileMode.Create))
                             {
-                                UserId = user.Id,
-                                FileName = FileUpload.FormFile.FileName,
-                                Content = memoryStream.ToArray()
-                            };
-                            _context.File.Add(file);
-
-                            await _context.SaveChangesAsync();
+                                await Input.FileUpload.FormFile.CopyToAsync(stream);
+                            }
                         }
-                        else
+
+                        using (var memoryStream = new MemoryStream())
                         {
-                            ModelState.AddModelError("File", "File can't be larger than 2MB.");
+                            await Input.FileUpload.FormFile.CopyToAsync(memoryStream);
+
+                            //Upload if less that 2 MB
+                            if (memoryStream.Length < 2097152)
+                            {
+
+
+
+                                var file = new AppFile()
+                                {
+                                    UserId = user.Id,
+                                    FileName = Input.FileUpload.FormFile.FileName,
+                                    Content = memoryStream.ToArray()
+                                };
+                                _context.File.Add(file);
+
+                                await _context.SaveChangesAsync();
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("File", "File can't be larger than 2MB.");
+                            }
                         }
+
+
                     }
-
-
 
 
 
@@ -225,7 +233,7 @@ namespace GameForum1.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }            
+            }
             // If we got this far, something failed, redisplay form
             return Page();
         }

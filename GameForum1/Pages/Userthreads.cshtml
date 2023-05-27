@@ -17,10 +17,13 @@
         <div class="my-2 fw-bold">
             @Model.SubCategory.Name
         </div>
-
+        @if (signInManager.IsSignedIn(User))
+        {
+            
         <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Create new thread
         </button>
+        }
     </div>
 </div>
 

@@ -24,10 +24,13 @@
             <div>@Model.UserThread.Date</div>
 
             <span>
-                <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Add comment
-                </button>
-            <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add comment
+                    </button>
+                }
+                <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
             </span>
 
         </div>

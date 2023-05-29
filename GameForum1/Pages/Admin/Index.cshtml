@@ -2,7 +2,24 @@
 @model GameForum1.Pages.Admin.IndexModel
 @{
 }
+<div class="text-center">
+    <h3 class="display-3 fw-bold">Admin Menu</h3>
+</div>
 
-<a asp-page="./MainCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage MainCategory</h3></a>
-<a asp-page="./SubCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage SubCategory</h3></a>
-<a asp-page="./RoleManager" class="nav-link text-dark" asp-area=""><h3>Manage User Roles</h3></a>
+<div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+        <a asp-page="./MainCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage MainCategory</h3></a>
+    </button>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+        <a asp-page="./SubCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage SubCategory</h3></a>
+    </button>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+        <a asp-page="./RoleManager" class="nav-link text-dark" asp-area=""><h3>Manage User Roles</h3></a>
+    </button>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+        <a asp-page="./ReportedThreads" class="nav-link text-dark" asp-area=""><h3>Manage Reported Threads</h3></a>
+    </button>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
+        <a asp-page="./ReportedComments" class="nav-link text-dark" asp-area=""><h3>Manage Reported Comments</h3></a>
+    </button>
+</div>

@@ -19,10 +19,10 @@
         </div>
         @if (signInManager.IsSignedIn(User))
         {
-            
-        <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Create new thread
-        </button>
+
+            <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Create new thread
+            </button>
         }
     </div>
 </div>
@@ -79,7 +79,9 @@
                     <div class="cta-section">
                         <div>@userThread.Date</div>
                         <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
-                        <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
+                        <form method="post" style="z-index:2">
+                            <button type="submit" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@Model.SubCategory.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Report</button>
+                        </form>
                     </div>
                 </div>
             </div>

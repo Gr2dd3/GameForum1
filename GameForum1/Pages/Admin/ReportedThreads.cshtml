@@ -1,0 +1,45 @@
+﻿@page
+@model GameForum1.Pages.Admin.ReportedThreadsModel
+@inject UserManager<GameForum1User> userManager
+@inject DAL.ProfilePictureManager profilePictureManager
+
+@{
+
+}
+
+
+
+@foreach (var userThread in Model.ReportedUserThreads)
+{
+    @foreach (var thisUser in userManager.Users.ToList())
+    {
+        if (thisUser.Id == userThread.UserId)
+        {
+            <div class="card my-2 mx-auto">
+                @{
+                    Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                }
+                <img src="@Model.ImageSrc" class="card-img-top">
+
+                <div class="card-body">
+                    <div class="text-section">
+                        <h5 class="card-title fw-bold">@userThread.Header</h5>
+                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: @thisUser.NickName</p>  @* ful-lösning på author position*@
+                    </div>
+                    <div class="cta-section">
+                        <div>@userThread.Date</div>
+                        <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
+                        <form method="post" style="z-index:2">
+                            <span>
+
+                            <button type="submit" asp-page-handler="Delete" asp-route-reportId="@userThread.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Delete</button>
+                            <button type="submit" asp-page-handler="Restore" asp-route-reportId="@userThread.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Restore</button>
+                            </span>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

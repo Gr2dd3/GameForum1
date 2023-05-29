@@ -19,4 +19,7 @@ public class Comment
 
     [JsonPropertyName("userId")]
     public string UserId { get; set; }
+	
+    [JsonPropertyName("reported")]
+	public bool Reported { get; set; }
 }

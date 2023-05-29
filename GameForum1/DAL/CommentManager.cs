@@ -52,7 +52,7 @@
         }
 
         // UPDATE
-        public static async Task UpdatComment(Comment existingComment)
+        public static async Task UpdateComment(Comment existingComment)
         {
 
             using (var client = new HttpClient())

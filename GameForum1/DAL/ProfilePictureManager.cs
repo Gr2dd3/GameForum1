@@ -32,7 +32,7 @@ namespace GameForum1.DAL
             }
             if (imageSrc == null || imageSrc == string.Empty)
             {
-                imageSrc = "./img/defaultProfile.jpg";
+                imageSrc = "../img/defaultProfile.jpg";
             }
             return imageSrc;
         }

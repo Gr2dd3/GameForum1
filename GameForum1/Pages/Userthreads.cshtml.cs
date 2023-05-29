@@ -11,54 +11,69 @@ using System.Security.Cryptography;
 
 namespace GameForum1.Pages
 {
-    public class UserthreadsModel : PageModel
-    {
-        private readonly GameForum1Context _context;
+	public class UserthreadsModel : PageModel
+	{
+		//private readonly GameForum1Context _context;
 
-        private readonly UserManager<GameForum1User> _userManager;
+		private readonly UserManager<GameForum1User> _userManager;
 
-        private readonly ProfilePictureManager _profilePictureManager;
+		//private readonly ProfilePictureManager _profilePictureManager;
 
-        public UserthreadsModel(GameForum1Context context, UserManager<GameForum1User> userManager, ProfilePictureManager profilePictureManager)
-        {
-            _context = context;
-            _userManager = userManager;
-            UserThreads = new();
-            _profilePictureManager = profilePictureManager;
-        }
+		public UserthreadsModel(GameForum1Context context, UserManager<GameForum1User> userManager, ProfilePictureManager profilePictureManager)
+		{
+			//_context = context;
+			_userManager = userManager;
+			UserThreads = new();
+			//_profilePictureManager = profilePictureManager;
+		}
 
-        public GameForum1User MyUser { get; set; }
-        [BindProperty]
-        public UserThread UserThread { get; set; }
-        public SubCategory SubCategory { get; set; }
-        public List<UserThread> UserThreads { get; set; }
-        public string ImageSrc { get; set; }
+		public GameForum1User MyUser { get; set; }
+		[BindProperty]
+		public UserThread UserThread { get; set; }
+		public SubCategory SubCategory { get; set; }
+		public List<UserThread> UserThreads { get; set; }
+		public string ImageSrc { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int subCategoryId)
-        {
-            MyUser = await _userManager.GetUserAsync(User);
+		public async Task<IActionResult> OnGetAsync(int subCategoryId)
+		{
+			if (subCategoryId != 0)
+			{
 
-            var allUserThreads = await DAL.UserThreadManager.GetUserThreads();
+				MyUser = await _userManager.GetUserAsync(User);
 
-            SubCategory = await DAL.SubCategoryManager.GetOneSubCategory(subCategoryId);
+				var allUserThreads = await DAL.UserThreadManager.GetUserThreads();
 
-            UserThreads.AddRange(allUserThreads.Where(x => x.SubCategoryId == subCategoryId));
+				SubCategory = await DAL.SubCategoryManager.GetOneSubCategory(subCategoryId);
 
-            return Page();
-        }
-        public async Task<IActionResult> OnPostAsync(int subCategoryId)
-        {
-            SubCategory = await DAL.SubCategoryManager.GetOneSubCategory(subCategoryId);
+				UserThreads.AddRange(allUserThreads.Where(x => x.SubCategoryId == subCategoryId));
+			}
 
-            MyUser = await _userManager.GetUserAsync(User);
 
-            UserThread.SubCategoryId = subCategoryId;
-            UserThread.UserId = MyUser.Id;
-            UserThread.Date = DateTime.Now;
-            // score +-
-            await DAL.UserThreadManager.CreateUserThread(UserThread);
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostReport(int subCategoryId, int reportId)
+		{
+			await DAL.UserThreadManager.ReportThread(reportId);
+
 
             return RedirectToPage("/Userthreads", new { SubcategoryId = subCategoryId });
+
         }
-    }
+        public async Task<IActionResult> OnPostAsync(int subCategoryId)
+		{
+			SubCategory = await DAL.SubCategoryManager.GetOneSubCategory(subCategoryId);
+
+			MyUser = await _userManager.GetUserAsync(User);
+
+			UserThread.SubCategoryId = subCategoryId;
+			UserThread.UserId = MyUser.Id;
+			UserThread.Date = DateTime.Now;
+			// score +-
+			await DAL.UserThreadManager.CreateUserThread(UserThread);
+
+			return RedirectToPage("/Userthreads", new { SubcategoryId = subCategoryId });
+		}
+		
+	}
 }

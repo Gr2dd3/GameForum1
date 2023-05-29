@@ -107,6 +107,13 @@
                 HttpResponseMessage response = await client.DeleteAsync("api/UserThread/" + id);
             }
         }
-    }
+        public static async Task ReportThread(int userThreadId)
+        {
+            var userThread = await GetOneUserThread(userThreadId);
 
+            userThread.Reported = true;
+
+            await UpdateUserThread(userThread);
+        }
+    }
 }

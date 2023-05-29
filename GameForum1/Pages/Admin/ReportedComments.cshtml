@@ -1,0 +1,43 @@
+﻿@page
+@model GameForum1.Pages.Admin.ReportedCommentsModel
+@inject UserManager<GameForum1User> userManager
+@inject DAL.ProfilePictureManager profilePictureManager
+
+@{
+}
+
+
+
+
+@foreach (var comment in Model.ReportedComments)
+{
+    @foreach (var thisUser in userManager.Users.ToList())
+    {
+        if (thisUser.Id == comment.UserId)
+        {
+            <div class="card my-2 mx-auto">
+                @{
+                    Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                }
+                <img src="@Model.ImageSrc" class="card-img-top">
+
+                <div class="card-body">
+                    <div class="text-section">
+                        <h5 class="card-title fw-bold">@comment.Content</h5>
+                    </div>
+                    <div class="cta-section">
+                        <p class="">Author: @thisUser.NickName</p>
+                        <div>@comment.Date</div>
+                        <form method="post" style="z-index:2">
+                            <span>
+                                <button type="submit" asp-page-handler="Delete" asp-route-reportId="@comment.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Delete</button>
+                                <button type="submit" asp-page-handler="Restore" asp-route-reportId="@comment.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Restore</button>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+}

@@ -1,7 +1,6 @@
 ﻿@page
 @model GameForum1.Pages.InboxModel
 @{
-    var userId = "";
 }
 @*MODAL TOGGLE BUTTON*@
 <div class="card cardbig my-2 mx-auto">
@@ -9,7 +8,6 @@
         <div class="my-2 fw-bold">
             Welcome to your inbox
         </div>
-
         <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Create new Message
         </button>
@@ -33,7 +31,7 @@
                                 Open this select menu
                                 @foreach (var user in Model.AllUsers)
                                 {
-                                    userId = user.Id;
+                                    var userId = user.Id;
                                     <option value="@userId">@user.UserName</option>
                                 }
                             </select>
@@ -56,3 +54,67 @@
         </div>
     </div>
 </div>
+
+<section class="bg-light text-dark p-2 p-lg-0 pt-lg-1 text-center text-sm-start">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between d-lg-flex d-md-flex">
+            <div class="card cardbig my-2 mx-auto">
+                <div class="card-body">
+                    @foreach (var message in Model.Inbox)
+                    {
+                        <div class="card my-2 mx-auto">
+                            <div class="card-body">
+                                <div class="my-2 fw-bold">
+
+                                    <h5>@message.Header</h5>
+                                    <h6>@message.Content</h6>
+                                    <p>@message.Date</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="card cardbig my-2 mx-auto">
+                <div class="card-body">
+                    @foreach (var message in Model.Outbox)
+                    {
+                        <div class="card my-2 mx-auto">
+                            <div class="card-body">
+                                <div class="my-2 fw-bold">
+
+                                    <h5>@message.Header</h5>
+                                    <h6>@message.Content</h6>
+                                    <p>@message.Date</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+
+            @*            <div>
+            <h3>INBOX</h3>
+            @foreach (var message in Model.Inbox)
+            {
+            <h5>@message.Header</h5>
+            <h6>@message.Content</h6>
+            <p>@message.Date</p>
+            }
+            </div>
+
+            <div>
+            <h3>OUTBOX</h3>
+            @foreach (var message in Model.Outbox)
+            {
+            <h5>@message.Header</h5>
+            <h6>@message.Content</h6>
+            <p>@message.Date</p>
+            }
+            </div>*@
+
+        </div>
+    </div>
+</section>

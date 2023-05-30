@@ -50,7 +50,7 @@ namespace GameForum1.Pages
 
             await _messageManager.CreateMessage(Message);
 
-            return Page();
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int deleteId)

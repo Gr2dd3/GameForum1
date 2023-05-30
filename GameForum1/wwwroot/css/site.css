@@ -111,11 +111,27 @@ button {
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
 }
+.cardinbox {
+    flex-direction: row;
+    max-width: 30em;
+    border: 0;
+    background-color: #7EA2AA;
+    color: #fff;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
 
 .cardbig {
     border: 0;
     flex-direction: row;
     max-width: 65em;
+    background-color: #303633;
+    color: #fff;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
+.cardbiginbox {
+    border: 0;
+    flex-direction: row;
+    max-width: 70em;
     background-color: #303633;
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);

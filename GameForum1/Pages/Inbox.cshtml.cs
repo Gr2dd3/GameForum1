@@ -1,4 +1,5 @@
 using GameForum1.DAL;
+using GameForum1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -27,9 +28,16 @@ namespace GameForum1.Pages
         public List<DbPrivateMessage> Inbox { get; set; }
         public List<DbPrivateMessage> Outbox { get; set; }
 
+        public DbPrivateMessage OpenedMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+
+        public async Task<IActionResult> OnGetAsync(int openedMessageId)
         {
+            if (openedMessageId is not 0)
+            {
+                OpenedMessage = new();
+                OpenedMessage = await _messageManager.GetOneMessage(openedMessageId);
+            }
             var currentUser = await _userManager.GetUserAsync(User);
             AllUsers = await _userManager.Users.ToListAsync();
 
@@ -38,7 +46,16 @@ namespace GameForum1.Pages
 
             return Page();
         }
+        public async Task<IActionResult> OnPostViewAsync(int messageId)
+        {
+            if (messageId is not 0)
+            {
+                OpenedMessage = new();
+                OpenedMessage = await _messageManager.GetOneMessage(messageId);
+            }
 
+            return RedirectToPage("/Inbox", new { OpenedMessageId = messageId });
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

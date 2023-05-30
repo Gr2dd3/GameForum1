@@ -3,7 +3,7 @@
 @{
 }
 @*MODAL TOGGLE BUTTON*@
-<div class="card cardbig my-2 mx-auto">
+<div class="card cardbiginbox my-2 mx-auto">
     <div class="card-body">
         <div class="my-2 fw-bold">
             Welcome to your inbox
@@ -55,66 +55,81 @@
     </div>
 </div>
 
-<section class="bg-light text-dark p-2 p-lg-0 pt-lg-1 text-center text-sm-start">
-    <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between d-lg-flex d-md-flex">
-            <div class="card cardbig my-2 mx-auto">
-                <div class="card-body">
-                    @foreach (var message in Model.Inbox)
-                    {
-                        <div class="card my-2 mx-auto">
-                            <div class="card-body">
-                                <div class="my-2 fw-bold">
 
-                                    <h5>@message.Header</h5>
-                                    <h6>@message.Content</h6>
-                                    <p>@message.Date</p>
-                                </div>
+
+<section class="text-dark p-2 p-lg-0 pt-lg-1 text-md-start text-sm-start">
+    <div class="container" style="width:70em;">
+        <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
+
+
+            <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
+                <p class="mx-auto text-center">Inbox</p>
+            </div>
+
+            <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
+                <p class="mx-auto text-center">Outbox</p>
+            </div>
+        </div>
+        <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
+
+
+            <div class="my-2 col-md-5 col-sm-12 bg-dark">
+                @foreach (var message in Model.Inbox)
+                {
+                    <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h5 class="card-title fw-bold">@message.Header</h5>
+                            </div>
+                            <div class="cta-section">
+                                <div>@message.Date</div>
+                                <form method="post">
+                                <button style="z-index:2" asp-page-handler="View" asp-route-messageId="@message.Id" type="submit" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                    View
+                                </button>
+                                </form>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
-            <div class="card cardbig my-2 mx-auto">
-                <div class="card-body">
-                    @foreach (var message in Model.Outbox)
-                    {
-                        <div class="card my-2 mx-auto">
-                            <div class="card-body">
-                                <div class="my-2 fw-bold">
 
-                                    <h5>@message.Header</h5>
-                                    <h6>@message.Content</h6>
-                                    <p>@message.Date</p>
-                                </div>
+            <div class="my-2 col-md-5 col-sm-12 bg-dark">
+                @foreach (var message in Model.Outbox)
+                {
+                    <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h5 class="card-title fw-bold">@message.Header</h5>
+                            </div>
+                            <div class="cta-section">
+                                <div>@message.Date</div>
+                                <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@message.Id" class="nav-link text-dark"></a>
+                                <form method="post" style="z-index:2">
+                                    <button type="submit" asp-page-handler="Report" asp-route-reportId="@message.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Remove</button>
+                                </form>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
-
-
-
-            @*            <div>
-            <h3>INBOX</h3>
-            @foreach (var message in Model.Inbox)
-            {
-            <h5>@message.Header</h5>
-            <h6>@message.Content</h6>
-            <p>@message.Date</p>
-            }
-            </div>
-
-            <div>
-            <h3>OUTBOX</h3>
-            @foreach (var message in Model.Outbox)
-            {
-            <h5>@message.Header</h5>
-            <h6>@message.Content</h6>
-            <p>@message.Date</p>
-            }
-            </div>*@
-
         </div>
     </div>
 </section>
+
+<!-- Modal message-->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="messageModalLabel">Meddelande</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Model.OpenedMessage.Header</p>
+                <p>@Model.OpenedMessage.Content</p>
+                <p>Hej</p>
+            </div>
+        </div>
+    </div>
+</div>

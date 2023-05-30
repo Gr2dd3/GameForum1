@@ -8,9 +8,9 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
 {
     public class DeleteModel : PageModel
     {
-        private readonly GameForum1.Data.GameForum1Context _context;
+        private readonly GameForum1Context _context;
 
-        public DeleteModel(GameForum1.Data.GameForum1Context context)
+        public DeleteModel(GameForum1Context context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null /*|| _context.MainCategories == null*/)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -29,7 +29,7 @@ namespace GameForum1.Pages.Admin.MainCategoryAdmin
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null /*|| _context.MainCategories == null*/)
+            if (id == null)
             {
                 return NotFound();
             }

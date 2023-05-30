@@ -10,11 +10,16 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
+    public MainCategory MainCategory { get; set; }
+    [BindProperty]
     public SubCategory SubCategory { get; set; }
+    public List<SubCategory> SubCategories { get; set; }    
 
-
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnGetAsync(int mainCategoryId)
     {
+		SubCategories = await DAL.SubCategoryManager.GetSubCategories();
+		var mainCategories = await DAL.MainCategoryManager.GetMainCategories();
+        MainCategory = mainCategories.FirstOrDefault(x => x.Id == mainCategoryId);
         return Page();
     }
 

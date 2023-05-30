@@ -2,16 +2,74 @@
 @model IndexModel
 @inject SignInManager<GameForum1User> signInManager;
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Gamers Paradise";
 }
+<body class="g-0">
+	<!-- Top section-->
+	<section class="bg-light text-dark p-5 p-lg-0 pt-lg-3 text-center text-sm-start">
+		<div class="container">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+			<div class="d-sm-flex align-items-center justify-content-between">
+				<div>
+					<h1>Welcome to <span class="text-success"> @ViewData["Title"]</span></h1>
+					<p class="lead my-3"> Here we discuss</p>
+					<ul class="list-group list-group-horizontal-lg">
+						<li class="list-group-item lead my-3">Playstation</li>
+						<li class="list-group-item lead my-3">Xbox</li>
+						<li class="list-group-item lead my-3">Retro</li>
+					</ul>
+				</div>
+					<img class="img-fluid w-25 d-none d-sm-block" src="img/gaming.svg" alt="Gamer">
+@*				@if (signInManager.IsSignedIn(User))
+				{
 
-   
-    @if (signInManager.IsSignedIn(User))
-    {
-        <img src="@Model.ImageSrc"/>
-      
-    }
-</div>
+				}*@
+			</div>
+		</div>
+	</section>
+	<!-- Forum -->
+	<section class="bg-light text-dark p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+		<div class="container">
+			<div class="row align-items-center justify-content-between">
+				<div class="col-md col-lg">
+					<img src="img/ninja.svg" class="img-fluid w-75 d-none d-sm-block" alt="Ninja">
+				</div>
+				<div class="col-md col-lg p-5">
+					@if (signInManager.IsSignedIn(User))
+					{
+						<img src="@Model.ImageSrc" />
+						@*						<h2>Add your <span class="text-success">Notes</span></h2>
+					<form method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center mb-4">
+					<div class="form-outline flex-fill">
+					<label asp-for="Post.Text" class="form-label"></label>
+					<input asp-for="Post.Text" class="form-control">
+					<input type="submit" class="btn btn-success btn-md mt-2" value="Save note">
+					</div>
+					</form>*@
+					}
+					else
+					{
+						<h2>Log in and add join the <span class="text-danger"><a href="/Identity/Account/Login" class="link-danger">@ViewData["Title"]</a></span></h2>
+					}
+					@*@if (Model.Posts is not null)
+					{
+
+					foreach (var post in Model.Posts)
+					{
+					@if (user is not null && user.Id == post.UserId)
+					{
+					<div>
+					<a asp-route-doneid="@post.Id" asp-for="IsDone" class="btn btn-outline-success btn-sm">
+					<img src="@post.Image" style="width:20px;">
+					</a>
+					<span class="text-success lead">@post.Text</span> <span class="text-primary">@post.Date.ToShortDateString()</span>
+					</div>
+
+					}
+					}
+					}*@
+				</div>
+			</div>
+		</div>
+	</section>
+</body>

@@ -11,21 +11,10 @@ namespace GameForum1.Pages.Admin.SubCategoryAdmin
 {
     public class IndexModel : PageModel
     {
-        private readonly GameForum1.Data.GameForum1Context _context;
-
-        public IndexModel(GameForum1.Data.GameForum1Context context)
-        {
-            _context = context;
-        }
-
         public List<SubCategory> SubCategories { get; set; }
 
         public async Task OnGetAsync()
         {
-            //if (_context.SubCategories is not null)
-            //{
-            //    //DbSubCategory = await _context.SubCategories.ToListAsync();
-            //}
             SubCategories = await DAL.SubCategoryManager.GetSubCategories();
         }
     }

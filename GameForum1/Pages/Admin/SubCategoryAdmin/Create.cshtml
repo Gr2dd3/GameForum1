@@ -1,53 +1,66 @@
 ﻿@page
 @model GameForum1.Pages.Admin.SubCategoryAdmin.CreateModel
 @{
-    List<MainCategory> mainCategories = await DAL.MainCategoryManager.GetMainCategories();
-    ViewData["Title"] = "Create";
+	List<MainCategory> mainCategories = await DAL.MainCategoryManager.GetMainCategories();
+	ViewData["Title"] = "Create new subcategory";
 
-    var chosenMainCategoryId = 0;
+	var chosenMainCategoryId = 0;
 }
 
-<h1>Create</h1>
-
-<h4>Create new SubCategory</h4>
+@*<h1>Create</h1>*@
+<h4>Create new subcategory</h4>
 
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <h4>Choose Maincategory</h4>
-            @if (mainCategories is not null && mainCategories.Count > 0)
-            {
-                @foreach (var mainCategory in @mainCategories)
-                {
-                    <a asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
-                }
-                
-                <br />
-                <br />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    @*Lägga till Id så man ser vilken main cat man valt*@
-                    <label asp-for="@Model.SubCategory.Name" class="control-label"></label>
-                    <input asp-for="@Model.SubCategory.Name" class="form-control" />
-                    <span asp-validation-for="@Model.SubCategory.Name" class="text-danger"></span>
-                </div>
+	<div class="col-md-4">
+		<form method="post">
+			<h4>Choose Maincategory</h4>
+			@if (mainCategories is not null && mainCategories.Count > 0)
+			{
+				@foreach (var mainCategory in @mainCategories)
+				{
+					<a asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
+				}
+				<br />
+				if (Model.MainCategory is not null)
+				{
+					<h3 class="display-6 bg-success bg-opacity-75">@Model.MainCategory.Name</h3>
+					chosenMainCategoryId = Model.MainCategory.Id;
+				}
+				<div class="mx-4">
 
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary mt-3 mb-2" />
-                </div>
-            }
-        </form>
-    </div>
+				@foreach (var item in Model.SubCategories)
+				{
+					if (item.MainCategoryId == chosenMainCategoryId)
+					{
+						@Html.DisplayFor(modelItem => item.Name)
+						<br />
+					}
+				}
+				</div>
+				<br />
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-group">
+					<label asp-for="@Model.SubCategory.Name" class="control-label">Enter subcategory name</label>
+					<input asp-for="@Model.SubCategory.Name" class="form-control" />
+					<span asp-validation-for="@Model.SubCategory.Name" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<input type="submit" value="Create" class="btn btn-primary mt-3 mb-2" />
+				</div>
+			}
+		</form>
+	</div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+	<a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

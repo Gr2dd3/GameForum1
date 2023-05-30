@@ -1,34 +1,6 @@
-html {
-    font-size: 14px;
-}
-
-    html body {
-        background-color: rgb(245, 249, 255)
-    }
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
 button {
     appearance: auto;
     writing-mode: horizontal-tb !important;
-    font-style:;
-    font-variant-ligatures:;
-    font-variant-caps:;
-    font-variant-numeric:;
-    font-variant-east-asian:;
-    font-variant-alternates:;
-    font-weight:;
-    font-stretch:;
-    font-size:;
-    font-family:;
-    font-optical-sizing:;
-    font-kerning:;
-    font-feature-settings:;
-    font-variation-settings:;
     text-rendering: auto;
     color: buttontext;
     letter-spacing: normal;
@@ -47,7 +19,6 @@ button {
     padding: 1px 6px;
     border-width: 2px;
     border-style: outset;
-    border-color: buttonborder;
     border-image: initial;
 }
 
@@ -131,15 +102,6 @@ button {
     .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
         box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
     }
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    margin-bottom: 60px;
-}
 
 .card {
     flex-direction: row;

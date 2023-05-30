@@ -12,8 +12,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("GameForum1ContextConnection") ?? throw new InvalidOperationException("Connection string 'GameForum1ContextConnection' not found.");
 
-        builder.Services.AddScoped<UserThread>();
-        builder.Services.AddScoped<List<UserThread>>();
+        //builder.Services.AddScoped<UserThread>();
+        //builder.Services.AddScoped<List<UserThread>>();
 
         builder.Services.AddTransient<ProfilePictureManager>();
         builder.Services.AddTransient<GameForum1Context>();
@@ -23,6 +23,7 @@ public class Program
         builder.Services.AddTransient<List<UserThread>>();
         builder.Services.AddTransient<List<Comment>>();
         builder.Services.AddTransient<SubCategory>();
+        builder.Services.AddTransient<MessageManager>();
 
         builder.Services.AddRazorPages(options =>
         {

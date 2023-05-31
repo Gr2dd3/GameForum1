@@ -65,7 +65,6 @@ namespace GameForum1.Pages
 			SubCategory = await DAL.SubCategoryManager.GetOneSubCategory(subCategoryId);
 
 			MyUser = await _userManager.GetUserAsync(User);
-
 			UserThread.SubCategoryId = subCategoryId;
 			UserThread.UserId = MyUser.Id;
 			UserThread.Date = DateTime.Now;

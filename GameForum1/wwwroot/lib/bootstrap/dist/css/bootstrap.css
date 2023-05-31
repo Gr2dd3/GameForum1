@@ -6,6 +6,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
+  --bs-mycolor: #eab84c;
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -7650,6 +7651,10 @@ textarea.form-control-lg {
 .text-primary {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
+.text-mycolor {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-mycolor-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-secondary {

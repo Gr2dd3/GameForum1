@@ -1,3 +1,4 @@
+using GameForum1.DAL;
 using GameForum1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,20 +21,23 @@ namespace GameForum1.Pages
         }
 
         public GameForum1User MyUser { get; set; }
+        public GameForum1User AuthorUser { get; set; }
         [BindProperty]
         public Comment Comment { get; set; }
         public UserThread UserThread { get; set; }
         public List<Comment> Comments { get; set; }
 		public string ImageSrc { get; set; }
 
-		// GET COMMENTS FOR SELECTED USERTHREAD
-		public async Task<IActionResult> OnGetAsync(int userThreadId)
+
+        // GET COMMENTS FOR SELECTED USERTHREAD
+        public async Task<IActionResult> OnGetAsync(int userThreadId)
         {
             MyUser = await _userManager.GetUserAsync(User);
 
             var allComments = await DAL.CommentManager.GetComments();
 
             UserThread = await DAL.UserThreadManager.GetOneUserThread(userThreadId);
+            AuthorUser = await _userManager.FindByIdAsync(UserThread.UserId);
 
             Comments.AddRange(allComments.Where(x => x.UserThreadId == userThreadId));
             return Page();
@@ -54,6 +58,5 @@ namespace GameForum1.Pages
 
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
         }
-
     }
 }

@@ -1,3 +1,14 @@
+.mygradient {
+    background: -webkit-linear-gradient(#31d, #f22);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mygradient2 {
+    background: -webkit-linear-gradient(#999, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 button {
     appearance: auto;
     writing-mode: horizontal-tb !important;
@@ -111,6 +122,14 @@ button {
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
 }
+.cardcolor {
+    flex-direction: row;
+    max-width: 60em;
+    border: 0;
+    background-color: #303633;
+    color: #fff;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
 .cardinbox {
     flex-direction: row;
     max-width: 30em;
@@ -125,6 +144,14 @@ button {
     flex-direction: row;
     max-width: 65em;
     background-color: #303633;
+    color: #fff;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
+.cardbigcolor {
+    border: 0;
+    flex-direction: row;
+    max-width: 65em;
+    background-color: #7EA2AA;
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
 }

@@ -28,34 +28,16 @@ namespace GameForum1.Pages
         public List<DbPrivateMessage> Inbox { get; set; }
         public List<DbPrivateMessage> Outbox { get; set; }
 
-        [BindProperty]
-        public DbPrivateMessage OpenedMessage { get; set; }
-
-
-        public async Task<IActionResult> OnGetAsync(int openedMessageId)
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (openedMessageId is not 0)
-            {
-                OpenedMessage = new();
-                OpenedMessage = await _messageManager.GetOneMessage(openedMessageId);
-            }
             var currentUser = await _userManager.GetUserAsync(User);
             AllUsers = await _userManager.Users.ToListAsync();
 
             Inbox = await _messageManager.GetRecievedMessages(currentUser.Id);
             Outbox = await _messageManager.GetSentMessages(currentUser.Id);
 
-            return Page();
-        }
-        public async Task<IActionResult> OnPostViewAsync(int messageId)
-        {
-            if (messageId is not 0)
-            {
-                OpenedMessage = new();
-                OpenedMessage = await _messageManager.GetOneMessage(messageId);
-            }
 
-            return RedirectToPage("/Inbox", new { OpenedMessageId = messageId });
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -77,7 +59,8 @@ namespace GameForum1.Pages
             {
                 await _messageManager.DeleteMessage(deleteId);
             }
-            return Page();
+
+            return RedirectToPage("./Inbox");
         }
     }
 }

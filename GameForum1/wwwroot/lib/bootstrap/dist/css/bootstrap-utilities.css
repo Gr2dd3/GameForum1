@@ -1297,6 +1297,12 @@
   color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
 }
 
+/*TODO:FÄRG  bs utilities*/
+.text-mycolor {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-mycolor-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-secondary {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important;

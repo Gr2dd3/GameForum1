@@ -1,4 +1,6 @@
-﻿namespace GameForum1.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GameForum1.Models;
 
 public class UserThread
 {
@@ -9,6 +11,7 @@ public class UserThread
     public int Score { get; set; }
 
     [JsonPropertyName("header")]
+    [MaxLength(80)]
     public string Header { get; set; }
 
     [JsonPropertyName("content")]
@@ -25,4 +28,5 @@ public class UserThread
 
     [JsonPropertyName("reported")]
     public bool Reported { get; set; }
+
 }

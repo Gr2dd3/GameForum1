@@ -28,6 +28,7 @@ namespace GameForum1.Pages
         public List<DbPrivateMessage> Inbox { get; set; }
         public List<DbPrivateMessage> Outbox { get; set; }
 
+        [BindProperty]
         public DbPrivateMessage OpenedMessage { get; set; }
 
 

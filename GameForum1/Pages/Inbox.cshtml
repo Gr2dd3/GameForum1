@@ -1,6 +1,15 @@
 ﻿@page
 @model GameForum1.Pages.InboxModel
 @{
+    DbPrivateMessage openedMessage = null;
+
+    DbPrivateMessage GetMessage(DbPrivateMessage message)
+    {
+        openedMessage = message;
+
+        return openedMessage;
+    }
+
 }
 @*MODAL TOGGLE BUTTON*@
 <div class="card cardbiginbox my-2 mx-auto">
@@ -83,16 +92,22 @@
                             </div>
                             <div class="cta-section">
                                 <div>@message.Date</div>
-                                <form method="post">
-                                <button style="z-index:2" asp-page-handler="View" asp-route-messageId="@message.Id" type="submit" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                <button style="z-index:2" onclick="() => GetOpenedMessage()" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#messageModal">
                                     View
                                 </button>
-                                </form>
+                                <script>
+                                    function GetOpenedMessage() {
+                                        $("button").html('@GetMessage(@message)');
+                                    }
+                                </script>
                             </div>
                         </div>
                     </div>
                 }
             </div>
+
+
+
 
             <div class="my-2 col-md-5 col-sm-12 bg-dark">
                 @foreach (var message in Model.Outbox)
@@ -105,9 +120,9 @@
                             <div class="cta-section">
                                 <div>@message.Date</div>
                                 <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@message.Id" class="nav-link text-dark"></a>
-                                <form method="post" style="z-index:2">
-                                    <button type="submit" asp-page-handler="Report" asp-route-reportId="@message.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Remove</button>
-                                </form>
+                                <button style="z-index:2" onclick="() => GetOpenedMessage(@message)" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#messageModal">
+                                    View
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -117,19 +132,22 @@
     </div>
 </section>
 
-<!-- Modal message-->
-<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="messageModalLabel">Meddelande</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>@Model.OpenedMessage.Header</p>
-                <p>@Model.OpenedMessage.Content</p>
-                <p>Hej</p>
+@if (openedMessage is not null)
+{
+    <!-- Modal message-->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="messageModalLabel">Meddelande</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@openedMessage.Header</p>
+                    <p>@openedMessage.Content</p>
+                    <p>Hej</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

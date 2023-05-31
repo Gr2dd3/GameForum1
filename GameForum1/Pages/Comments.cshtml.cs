@@ -26,7 +26,7 @@ namespace GameForum1.Pages
         public Comment Comment { get; set; }
         public UserThread UserThread { get; set; }
         public List<Comment> Comments { get; set; }
-		public string ImageSrc { get; set; }
+        public string ImageSrc { get; set; }
 
 
         // GET COMMENTS FOR SELECTED USERTHREAD
@@ -57,6 +57,17 @@ namespace GameForum1.Pages
             await DAL.CommentManager.CreateComment(Comment);
 
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
+        }
+
+        public async Task<IActionResult> OnPostReport(int userThreadId, int reportcommentId)
+        {
+            if (reportcommentId is not 0)
+            {
+                await DAL.CommentManager.ReportComment(reportcommentId);
+            }
+
+            return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
+
         }
     }
 }

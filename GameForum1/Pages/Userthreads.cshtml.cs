@@ -13,18 +13,12 @@ namespace GameForum1.Pages
 {
 	public class UserthreadsModel : PageModel
 	{
-		//private readonly GameForum1Context _context;
-
 		private readonly UserManager<GameForum1User> _userManager;
 
-		//private readonly ProfilePictureManager _profilePictureManager;
-
-		public UserthreadsModel(GameForum1Context context, UserManager<GameForum1User> userManager, ProfilePictureManager profilePictureManager)
+		public UserthreadsModel(UserManager<GameForum1User> userManager)
 		{
-			//_context = context;
 			_userManager = userManager;
 			UserThreads = new();
-			//_profilePictureManager = profilePictureManager;
 		}
 
 		public GameForum1User MyUser { get; set; }

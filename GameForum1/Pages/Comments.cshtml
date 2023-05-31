@@ -6,16 +6,7 @@
 @{
     var myUser = await userManager.GetUserAsync(User);
 }
-@*<div class="card cardbiginbox my-2 mx-auto">
-    <div class="card-body">
-        <div class="my-2 fw-bold">
-            @Model.UserThread.Header
-        </div>
-        <button type="button" class="btn bg-light" style="padding:0">
-            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
-        </button>
-    </div>
-</div>*@
+
 
 <div class="card cardbig my-2 mx-auto">
     @{
@@ -31,9 +22,7 @@
         </div>
         <div class="cta-section">
             <div>@Model.UserThread.Date</div>
-            <a href="javascript:history.back()" type="button" class="btn bg-light">
-                Go back
-                </a>
+            <a href="javascript:history.back()" type="button" class="btn bg-light">Go back</a>
 
             <span>
                 @if (signInManager.IsSignedIn(User))
@@ -42,7 +31,6 @@
                         Add comment
                     </button>
                 }
-                <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
             </span>
 
         </div>
@@ -95,7 +83,9 @@
                     </div>
                     <div class="cta-section">
                         <div>@comment.Date</div>
-                        <a class="btn btn-light bg-light" href="" style="z-index:2">Report</a>
+                        <form method="post" style="z-index:2">
+                        <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportCommentId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Report</button>
+                        </form>
                     </div>
                 </div>
             </div>

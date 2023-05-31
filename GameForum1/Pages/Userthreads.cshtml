@@ -11,15 +11,18 @@
 
 }
 
+
 @*MODAL TOGGLE BUTTON*@
 <div class="card cardbig my-2 mx-auto">
     <div class="card-body">
+        <button type="button" class="btn bg-light" style="padding:0">
+            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
+        </button>
         <div class="my-2 fw-bold">
             @Model.SubCategory.Name
         </div>
         @if (signInManager.IsSignedIn(User))
         {
-
             <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Create new thread
             </button>
@@ -79,12 +82,9 @@
                     <div class="cta-section">
                         <div>@userThread.Date</div>
                         <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
-                        <span>
                             <form method="post" style="z-index:2">
-                                <button class="btn bg-light">Comment</button>
-                                <button type="submit" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@Model.SubCategory.Id" class="btn btn-light bg-light" style="z-index:2" id="btnReportThread">Report</button>
+                                <button type="submit" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@Model.SubCategory.Id" style="z-index:2" class="btn btn-light bg-light" id="btnReportThread">Report</button>
                             </form>
-                        </span>
                     </div>
                 </div>
             </div>

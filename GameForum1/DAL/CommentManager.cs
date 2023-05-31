@@ -89,5 +89,13 @@
             }
         }
 
+        public static async Task ReportComment(int commentId)
+        {
+            var comment = await GetOneComment(commentId);
+
+            comment.Reported = true;
+
+            await UpdateComment(comment);
+        }
     }
 }

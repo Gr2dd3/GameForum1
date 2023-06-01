@@ -16,14 +16,13 @@
 
     <div class="card-body">
         <div class="text-section">
-            <h5 class="fw-bold"><span class="mygradient2">@Model.UserThread.Header</span></h5>
+            <h5><span class="mygradient2">@Model.UserThread.Header</span></h5>
             <p class="card-text py-5">@Model.UserThread.Content</p>
             <p class="card-text position-absolute bottom-0 start-20 py-1">Author: @Model.AuthorUser.NickName</p> @*TODO: Kolla att det blir rätt author*@
         </div>
         <div class="cta-section">
-            <div>@Model.UserThread.Date</div>
+            <p>@Model.UserThread.Date</p>
             <a href="javascript:history.back()" type="button" class="btn bg-light">Go back</a>
-
             <span>
                 @if (signInManager.IsSignedIn(User))
                 {
@@ -70,8 +69,6 @@
     {
         if (thisUser.Id == comment.UserId)
         {
-
-
             <div class="card my-2 mx-auto">
                 @{
                     Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
@@ -80,11 +77,11 @@
 
                 <div class="card-body">
                     <div class="text-section">
-                        <h5 class="card-title fw-bold"><span class="mygradient">@thisUser.NickName</span> says:</h5> @*TODO: Färgval i span (comments)*@
+                        <h5 class="card-title"><span class="mygradient">@thisUser.NickName</span> says:</h5> @*TODO: Färgval i span (comments)*@
                         <p class="card-text py-5">@comment.Content</p>
                     </div>
                     <div class="cta-section">
-                        <div>@comment.Date</div>
+                        <p>@comment.Date</p>
                         @if (myUser is not null && myUser.Id == comment.UserId)
                         {
                             <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" style="z-index:2">Edit</a>

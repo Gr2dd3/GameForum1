@@ -6,9 +6,10 @@
 @*MODAL TOGGLE BUTTON*@
 <div class="card cardbiginbox my-2 mx-auto">
     <div class="card-body">
-        <div class="my-2 fw-bold">
+        <h4>
             Welcome to your inbox
-        </div>
+        </h4>
+
         <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Create new Message
         </button>
@@ -26,7 +27,6 @@
             <div class="modal-body">
                 <form method="post">
                     <div class="form-group">
-
                         <div>
                             <select name="userId" class="form-select form-select-lg mb-3">
                                 Open this select menu
@@ -72,14 +72,14 @@
             </div>
         </div>
         <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
-
+            @*INBOX HERE*@
             <div class="my-2 col-md-5 col-sm-12 bg-dark">
                 @foreach (var message in Model.Inbox.OrderByDescending(x => x.Date))
                 {
                     <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
                         <div class="card-body">
                             <div class="text-section">
-                                <h5 class="card-title fw-bold">@message.Header</h5>
+                                <h5 class="card-title">@message.Header</h5>
                             </div>
                             <div class="cta-section">
                                 <div>@message.Date</div>
@@ -92,19 +92,20 @@
                     </div>
                 }
             </div>
+            @*OUTBOX HERE*@
             <div class="my-2 col-md-5 col-sm-12 bg-dark">
                 @foreach (var message in Model.Outbox.OrderByDescending(x => x.Date))
                 {
                     <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
                         <div class="card-body">
                             <div class="text-section">
-                                <h5 class="card-title fw-bold">@message.Header</h5>
+                                <h5 class="card-title">@message.Header</h5>
                             </div>
                             <div class="cta-section">
                                 <div>@message.Date</div>
                                 <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
                                 <form method="post" style="z-index:2">
-                                <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
+                                    <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
                                 </form>
                             </div>
                         </div>

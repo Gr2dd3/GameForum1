@@ -12,7 +12,7 @@
             <div class="d-sm-flex align-items-center justify-content-between">
                 <div>
                     <h1>Welcome to <span class="mygradient"> @ViewData["Title"]</span></h1>
-                    <p class="lead my-3"> Here we discuss</p>
+                    <p class="my-3">Been spending most our time living in a gamers paradise</p>
                     <ul class="list-group list-group-horizontal-lg">
                         <li class="list-group-item lead my-3">Playstation</li>
                         <li class="list-group-item lead my-3">Xbox</li>
@@ -20,10 +20,6 @@
                     </ul>
                 </div>
                 <img class="img-fluid w-25 d-none d-sm-block" src="img/gaming.svg" alt="Gamer">
-                @*				@if (signInManager.IsSignedIn(User))
-                {
-
-                }*@
             </div>
         </div>
     </section>
@@ -42,37 +38,17 @@
                                 <img class="img-fluid" src="@Model.ImageSrc" />
                             </div>
                             <div class="col-6 p-4">
-                                <div class="display-6">Welcome</div>
-                                <div class="lead mygradient">@Model.MyUser.NickName</div>
-                                <div class="lead">@Model.MyUser.Email</div>
-                                <div class="lead">Birthyear: @Model.MyUser.BirthYear</div>
+                                <h5 class="display-6">Welcome</h5>
+                                <p class="mygradient">@Model.MyUser.NickName</p>
+                                <p >@Model.MyUser.Email</p>
+                                <p >Birthyear: @Model.MyUser.BirthYear</p>
                             </div>
                         </div>
-
                     }
                     else
                     {
-                        <h3>Log in and add join the <span><a href="/Identity/Account/Login" class="mygradient">@ViewData["Title"]</a></span></h3>
-
-                        
+                        <h5>Log in and add join the <span><a href="/Identity/Account/Login" class="mygradient">@ViewData["Title"]</a></span></h5>
                     }
-                    @*@if (Model.Posts is not null)
-                    {
-
-                    foreach (var post in Model.Posts)
-                    {
-                    @if (user is not null && user.Id == post.UserId)
-                    {
-                    <div>
-                    <a asp-route-doneid="@post.Id" asp-for="IsDone" class="btn btn-outline-success btn-sm">
-                    <img src="@post.Image" style="width:20px;">
-                    </a>
-                    <span class="text-success lead">@post.Text</span> <span class="text-primary">@post.Date.ToShortDateString()</span>
-                    </div>
-
-                    }
-                    }
-                    }*@
                 </div>
             </div>
         </div>

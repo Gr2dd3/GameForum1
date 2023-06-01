@@ -1,3 +1,20 @@
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* position: fixed;
+  z-index: 1; */
+}
+
+body {
+    position: relative;
+    padding-bottom: 90px;
+    min-height: 100vh;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap%27); @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=VT323&display=swap%27); :root
 
@@ -5,7 +22,14 @@
     --glow-color: hsl(186 100% 69%);
 }
 
-
+a {
+    color: inherit;
+    text-decoration: none;
+}
+    a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
 
 .glowing-btn {
     position: relative;

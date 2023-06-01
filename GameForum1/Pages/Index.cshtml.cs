@@ -33,11 +33,11 @@ public class IndexModel : PageModel
 
             if (ProfilePicture is not null)
             {
-                ImageSrc = string.Format("data:{0};base64,{1}", "jpg", Convert.ToBase64String(ProfilePicture.Content));
+                ImageSrc = string.Format("data:{0};base64,{1}", "png", Convert.ToBase64String(ProfilePicture.Content));
             }
             else
             {
-                ImageSrc = "/img/defaultProfile.jpg";
+                ImageSrc = "/img/defaultProfile.png";
             }
             
         }

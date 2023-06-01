@@ -59,11 +59,21 @@ namespace GameForum1.Pages
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
         }
 
-        public async Task<IActionResult> OnPostReport(int userThreadId, int reportcommentId)
+        public async Task<IActionResult> OnPostReport(int userThreadId, int reportId)
         {
-            if (reportcommentId is not 0)
+            if (reportId is not 0)
             {
-                await DAL.CommentManager.ReportComment(reportcommentId);
+                await DAL.CommentManager.ReportComment(reportId);
+            }
+
+            return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
+
+        }
+        public async Task<IActionResult> OnPostRemove(int userThreadId, int removeId)
+        {
+            if (removeId is not 0)
+            {
+                await DAL.CommentManager.DeleteComment(removeId);
             }
 
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });

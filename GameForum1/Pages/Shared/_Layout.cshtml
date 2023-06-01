@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GameForum1.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="g-0 bg-light">
     <div class="container-fluid">
         <header class="bg-dark w-100">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 g-0">
                 <div class="container">
                     <div class="navbar-brand start-0 mx-auto">
-                        <button class='glowing-btn'><span class='glowing-txt'>Gamers Paradise</span></button>
+                        <button class='glowing-btn'><span class="glowing-txt"><a asp-page="./Index">Gamers Paradise</a></span></button>
                     </div>
                     <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -35,18 +35,16 @@
             </nav>
         </header>
     </div>
-    <div class="container bg-light">
+    <div class="container">
         <main role="main" class="pb-0">
             @RenderBody()
         </main>
     </div>
     <!-- Footer-->
-    <footer class="p-5 bg-dark text-white text-center position-relative">
+    <footer class="fixed-bottom bg-dark text-white text-center">
         <div class="container-fluid">
             <p class="lead">Copyright &copy; Gamers Paradise</p>
-            <a href="#" class="position-absolute bottom-0 end-0 p-5">
-                <i class="bi bi-arrow-up-circle h1"></i>
-            </a>
+            
         </div>
     </footer>
 

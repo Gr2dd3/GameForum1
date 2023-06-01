@@ -27,12 +27,12 @@ namespace GameForum1.DAL
                 if (userId == picture.UserId)
                 {
                     var imgContent = picture.Content;
-                    imageSrc = string.Format("data:{0};base64,{1}", "jpg", Convert.ToBase64String(imgContent));
+                    imageSrc = string.Format("data:{0};base64,{1}", "png", Convert.ToBase64String(imgContent));
                 }
             }
             if (imageSrc == null || imageSrc == string.Empty)
             {
-                imageSrc = "../img/defaultProfile.jpg";
+                imageSrc = "../img/defaultProfile.png";
             }
             return imageSrc;
         }

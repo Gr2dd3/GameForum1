@@ -5,12 +5,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div style="max-width:100rem;" class="card cardbig my-2 mx-auto">
+    <div class="card-body">
+        <button type="button" class="btn bg-light" style="padding:0">
+            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
+        </button>
+        <div class="my-2 display-6">
+            Maincategories
+        </div>
+        <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a asp-page="Create">Create New</a>
+        </button>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
+    </div>
+</div>
+
+
+
+
+
+<table class="table bg-dark text-light round rounded-3 shadow fs-2">
     <thead>
         <tr>
             <th>
@@ -20,17 +34,17 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.MainCategory) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.MainCategory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a class="mygradient" asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="mygradient2" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

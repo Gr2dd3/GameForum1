@@ -6,7 +6,20 @@
 @{
 }
 
+<div class="card cardbig my-2 mx-auto">
+    <div class="card-body">
+        <div class="my-2 display-6 mx-auto justify-content-between">Reported comments</div>
+    </div>
+</div>
 
+
+@if (Model.ReportedComments.Count == 0)
+{
+    <div class="text-center">
+
+        <h1 class="mygradient">There are no reported comments.<br />The ban-hammer rests</h1>
+    </div>
+}
 
 
 @foreach (var comment in Model.ReportedComments)

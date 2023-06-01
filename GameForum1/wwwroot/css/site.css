@@ -32,8 +32,6 @@ p, .p {
     }
 }
 
-
-
 footer {
     text-align: center;
     background-color: #333;
@@ -68,7 +66,7 @@ a {
 
 
 :root {
-    --glow-color: hsl(186 100% 69%);
+    --glow-color: hsla(328, 100%, 60%, 0.86);
 }
 
 .glowing-btn {

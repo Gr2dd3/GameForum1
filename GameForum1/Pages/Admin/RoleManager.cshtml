@@ -2,33 +2,50 @@
 @model GameForum1.Pages.Admin.RoleManagerModel
 @{
 }
-<div>
-    <h1>Befintliga roller</h1>
-    @foreach (var role in Model.Roles)
-    {
-        <p>@role.Name</p>
-    }
+
+
+<div style="max-width:100rem;" class="card cardbig my-2 mx-auto">
+    <div class="card-body">
+        <button type="button" class="btn bg-light" style="padding:0">
+            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
+        </button>
+        <div class="my-2 display-6 mx-auto justify-content-between mygradient2">Role manager</div>
+        <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            New role
+        </button>
+    </div>
 </div>
+
 <div>
-    @if (Model.IsAdmin)
-    {
-        <p class="alert alert-primary">Det här får bara admin se</p>
-    }
-    @if (Model.IsUser)
-    {
-        <p class="alert alert-success">Det här får bara användaren se</p>
-    }
-</div>
-<div>
-    <h1>Befintliga användare</h1>
-    <table class="table">
+    <table class="table bg-dark text-light round rounded-3 shadow fs-2">
         <tr>
-            <th>
+            <th class="mygradient2">
+                Role
+            </th>
+        </tr>
+
+
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>@role.Name</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+<div>
+    <table class="table bg-dark text-light round rounded-3 shadow fs-2">
+        <tr>
+            <th class="mygradient2">
                 Username
             </th>
             @foreach (var role in Model.Roles)
             {
-                <th>
+                <th class="mygradient2">
                     @role.Name
                 </th>
             }
@@ -44,13 +61,13 @@
                     if (await Model._userManager.IsInRoleAsync(user, role.Name))
                     {
                         <td>
-                            <a href="?RemoveUserId=@user.Id&role=@role.Name"><button class="btn btn-outline-success p-1">Ja</button></a>
+                            <a class="btn bg-light mygradient p-1" href="?RemoveUserId=@user.Id&role=@role.Name">Ja</a>
                         </td>
                     }
                     else
                     {
                         <td>
-                            <a href="?AddUserId=@user.Id&role=@role.Name"><button class="btn btn-outline-danger p-1">Nej</button></a>
+                            <a class="btn bg-light mygradient2 p-1" href="?AddUserId=@user.Id&role=@role.Name">Nej</a>
                         </td>
                     }
                 }
@@ -58,10 +75,26 @@
         }
     </table>
 </div>
-<div>
-    <form method="post">
-        <label for="RoleName">Ny roll</label>
-        <input name="RoleName" id="RoleName" />
-        <input type="submit" value="Skapa ny roll" />
-    </form>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create new thread</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="form-group">
+                        <form method="post">
+                            <label for="RoleName">Ny roll</label>
+                            <input name="RoleName" id="RoleName" />
+                        </form>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit role</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

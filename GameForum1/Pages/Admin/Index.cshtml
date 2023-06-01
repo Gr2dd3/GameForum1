@@ -2,24 +2,26 @@
 @model GameForum1.Pages.Admin.IndexModel
 @{
 }
-<div class="text-center">
-    <h3 class="display-3 fw-bold">Admin Menu</h3>
+<div class="card cardbig my-2 mx-auto">
+    <div class="card-body">
+        <div class="my-2 display-6 mx-auto justify-content-between">Admin menu</div>
+    </div>
 </div>
 
-<div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-        <a asp-page="./MainCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage MainCategory</h3></a>
+<div class="list-group w-75 mx-auto">
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+        <a asp-page="./MainCategoryAdmin/Index" class="nav-link text-dark" asp-area="">Manage MainCategory</a>
     </button>
-    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-        <a asp-page="./SubCategoryAdmin/Index" class="nav-link text-dark" asp-area=""><h3>Manage SubCategory</h3></a>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+        <a asp-page="./SubCategoryAdmin/Index" class="nav-link text-dark" asp-area="">Manage SubCategory</a>
     </button>
-    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-        <a asp-page="./RoleManager" class="nav-link text-dark" asp-area=""><h3>Manage User Roles</h3></a>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+        <a asp-page="./RoleManager" class="nav-link text-dark" asp-area="">Manage User Roles</a>
     </button>
-    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-        <a asp-page="./ReportedThreads" class="nav-link text-dark" asp-area=""><h3>Manage Reported Threads</h3></a>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+        <a asp-page="./ReportedThreads" class="nav-link text-dark" asp-area="">Manage Reported Threads</a>
     </button>
-    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-        <a asp-page="./ReportedComments" class="nav-link text-dark" asp-area=""><h3>Manage Reported Comments</h3></a>
+    <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+        <a asp-page="./ReportedComments" class="nav-link text-dark" asp-area="">Manage Reported Comments</a>
     </button>
 </div>

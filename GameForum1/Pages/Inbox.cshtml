@@ -4,14 +4,16 @@
 }
 
 @*MODAL TOGGLE BUTTON*@
-<div class="card cardbiginbox my-2 mx-auto">
+<div style="max-width: 80rem" class="card cardbiginbox my-2 mx-auto">
     <div class="card-body">
-        <h4>
+        <button type="button" class="btn bg-light" style="padding:0">
+            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
+        </button>
+        <div class="my-2 display-6">
             Welcome to your inbox
-        </h4>
-
+        </div>
         <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Create new Message
+            New Message
         </button>
     </div>
 </div>
@@ -64,19 +66,19 @@
 
 
             <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
-                <p class="mx-auto text-center">Inbox</p>
+                <h5 class="mx-auto text-center">Inbox</h5>
             </div>
 
             <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
-                <p class="mx-auto text-center">Outbox</p>
+                <h5 class="mx-auto text-center">Outbox</h5>
             </div>
         </div>
         <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
             @*INBOX HERE*@
-            <div class="my-2 col-md-5 col-sm-12 bg-dark">
+            <div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
                 @foreach (var message in Model.Inbox.OrderByDescending(x => x.Date))
                 {
-                    <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
+                    <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
                         <div class="card-body">
                             <div class="text-section">
                                 <h5 class="card-title">@message.Header</h5>
@@ -93,10 +95,10 @@
                 }
             </div>
             @*OUTBOX HERE*@
-            <div class="my-2 col-md-5 col-sm-12 bg-dark">
+            <div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
                 @foreach (var message in Model.Outbox.OrderByDescending(x => x.Date))
                 {
-                    <div class="cardinbox my-2 mx-auto" style="transform: rotate(0)">
+                    <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
                         <div class="card-body">
                             <div class="text-section">
                                 <h5 class="card-title">@message.Header</h5>

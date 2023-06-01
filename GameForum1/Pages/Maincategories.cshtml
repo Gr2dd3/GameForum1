@@ -6,20 +6,19 @@
     MainCategories = await DAL.MainCategoryManager.GetMainCategories();
 }
 
-
-    <button type="button" class="btn bg-light" style="padding:0">
-        <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
-    </button>
-    <div class="text-center">
-        <h3 class="display-3 fw-bold">Maincategories</h3>
+<div class="card cardbig my-2 mx-auto">
+    <div class="card-body">
+        <div class="my-2 display-6 mx-auto justify-content-between">Maincategories</div>
     </div>
-    @foreach (var mainCategory in MainCategories)
-    {
-        <div class="list-group">
-            <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light mx-3 my-1">
-                <a asp-page="/Subcategories" asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark" >@mainCategory.Name</a>
-            </button>
-        </div>
-    }
+</div>
+
+@foreach (var mainCategory in MainCategories)
+{
+    <div class="list-group w-75 mx-auto">
+        <button type="button" class="list-group-item list-group-item-action btn btn-light bg-light my-1">
+            <a asp-page="/Subcategories" asp-route-mainCategoryId="@mainCategory.Id" class="nav-link text-dark">@mainCategory.Name</a>
+        </button>
+    </div>
+}
 
 

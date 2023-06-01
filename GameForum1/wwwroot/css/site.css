@@ -2,6 +2,36 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 
+
+.logoutbtn {
+    padding: 0.25em 0.5em;
+    background-color: transparent;
+    color: darkred;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+    
+
+    .logoutbtn::after {
+        content: "Logout";
+    }
+    .logoutbtn:hover:after {
+        content: "DON'T!"
+    }
+    .logoutbtn:hover {
+        background: darkred;
+        color: #050801;
+        box-shadow: 0 0 5px darkred, 0 0 25px darkred, 0 0 50px darkred, 0 0 200px darkred;
+        -webkit-box-reflect: below 1px linear-gradient(transparent, darkred);
+        border: none;
+    }
+
 h1, .h1 {
     font-size: calc(2.5rem + 1.5vw);
 }
@@ -48,7 +78,6 @@ body {
     position: relative;
     padding-bottom: 90px;
     min-height: 100vh;
-    
     font-family: 'VT323', monospace;
     /*font-family: 'DotGothic16', sans-serif;*/
 }
@@ -73,27 +102,27 @@ a {
     position: relative;
     color: var(--glow-color);
     cursor: pointer;
-    padding: 0.35em 1em;
-    border: 0.15em solid var(--glow-color);
-    border-radius: 0.45em;
+    padding: 0.25em 0.5em;
+    border: 0.15em outset var(--glow-color);
+    border-radius: 0.4em;
     background: none;
     perspective: 2em;
     
-    font-size: 2em;
-    font-weight: 900;
-    letter-spacing: 2px;
-    -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
-    -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
+    font-size: 1.7em;
+    font-weight: 600;
+    letter-spacing: 5px;
+    --webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
+    --moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
     box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
-    animation: border-flicker 2s linear infinite;
+    animation: border-flicker 5s linear infinite ;
 }
 
 .glowing-txt {
     float: left;
-    -webkit-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
-    -moz-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
+    --webkit-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
+    --moz-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
     text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
-    animation: text-flicker 3s linear infinite;
+    animation: text-flicker 5s linear infinite;
 }
 
 .glowing-btn::before {
@@ -106,7 +135,7 @@ a {
     opacity: 0.7;
     filter: blur(1em);
     /*    transform: translateY(120%) rotateX(95deg) scale(1, 0.35);   denna ska bort
-*/ background: var(--glow-color);
+*/  background: var(--glow-color);
     pointer-events: none;
 }
 

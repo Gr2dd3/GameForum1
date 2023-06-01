@@ -7,7 +7,7 @@
     var myUser = await userManager.GetUserAsync(User);
 }
 
-
+@*USERTHREAD*@
 <div class="card cardbig my-2 mx-auto">
     @{
         Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.UserThread.UserId);
@@ -18,7 +18,7 @@
         <div class="text-section">
             <h5><span class="mygradient2">@Model.UserThread.Header</span></h5>
             <p class="card-text py-5">@Model.UserThread.Content</p>
-            <p class="card-text position-absolute bottom-0 start-20 py-1">Author: @Model.AuthorUser.NickName</p> @*TODO: Kolla att det blir rätt author*@
+            <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@Model.AuthorUser.NickName</span></p>
         </div>
         <div class="cta-section">
             <p>@Model.UserThread.Date</p>

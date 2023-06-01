@@ -9,7 +9,7 @@ public class CreateModel : PageModel
         _context = context;
     }
 
-    [BindProperty]
+    
     public MainCategory MainCategory { get; set; }
     [BindProperty]
     public SubCategory SubCategory { get; set; }
@@ -25,7 +25,7 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(int mainCategoryId)
     {
-        var subCategories = await DAL.SubCategoryManager.GetSubCategories();
+        //var subCategories = await DAL.SubCategoryManager.GetSubCategories();
 
         if (ModelState.IsValid)
         {

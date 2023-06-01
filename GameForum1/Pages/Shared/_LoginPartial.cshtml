@@ -4,27 +4,29 @@
 @inject SignInManager<GameForum1User> SignInManager
 @inject UserManager<GameForum1User> UserManager
 
-<ul class="nav nav-pills mx-3">
+<ul class="nav mx-3">
 @if (SignInManager.IsSignedIn(User))
 {
-        <li class="nav-item fs-4">
+        <li class="nav-item fs-4 my-auto">
             <a class="nav-link text-light fw-normal" asp-page="/Inbox">Inbox</a>
     </li>
-        <li class="nav-item fs-4">
+        <li class="nav-item fs-4 my-auto">
         <a id="manage" class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
     </li>
-        <li class="nav-item fs-4">
+        <li class="nav-item fs-4 my-auto">
         <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link border-0  btn-close-white">Logout</button>
+            @*<button id="logout" type="submit" class="nav-link btn btn-link border-0  btn-close-white">Logout</button>*@
+                <button class="logoutbtn"></button>
         </form>
+
     </li>
 }
 else
 {
-    <li class="nav-item fs-4">
+        <li class="nav-item fs-4 my-auto">
         <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-        <li class="nav-item fs-4">
+        <li class="nav-item fs-4 my-auto">
         <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }

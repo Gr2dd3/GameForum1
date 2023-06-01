@@ -17,16 +17,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-brand mx-3">
-                    <button class="glowing-btn"><span class="glowing-txt"><a asp-page="./Index">Gamers Paradise</a></span></button>
+                    <button class="glowing-btn"><span class="glowing-txt"><a asp-page="/Index">Gamers Paradise</a></span></button>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex align-content-end">
                     <ul class="navbar-nav flex-grow-1 fs-4">
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-page="/Maincategories">Browse forum</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Admin/Index">Admin</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-page="/Admin/Index">Admin</a>
+                            </li>
+                        }
+                        
                     </ul>
                     <partial class="text-success" name="_LoginPartial" />
                 </div>

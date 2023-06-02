@@ -7,6 +7,7 @@
     var myUser = await userManager.GetUserAsync(User);
     ViewData["Title"] = "Userthreads";
 
+
 }
 
 
@@ -95,7 +96,12 @@
                             }
                             @if (myUser is not null && myUser.Id != userThread.UserId)
                             {
-                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" style="z-index:3">Report</button>
+                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" style="z-index:3">
+                                    @{
+                                        var reportedButtonName = userThread.Reported == false ? "Report" : "Under review";
+                                    }
+                                    @reportedButtonName
+                                    </button>
                             }
                         </form>
                         <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>

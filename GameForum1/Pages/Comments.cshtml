@@ -98,7 +98,12 @@
                             }
                             @if (myUser is not null && myUser.Id != comment.UserId)
                             {
-                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Report</button>
+                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">
+                                    @{
+                                        var reportedButtonName = comment.Reported == false ? "Report" : "Under review";
+                                    }
+                                    @reportedButtonName
+                                    </button>
                             }
                         </form>
 

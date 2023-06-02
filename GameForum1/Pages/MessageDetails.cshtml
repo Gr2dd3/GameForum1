@@ -3,6 +3,7 @@
 @inject DAL.ProfilePictureManager profilePictureManager
 @inject UserManager<GameForum1User> userManager
 @{
+	ViewData["Title"] = "Message";
 	var myUser = await userManager.GetUserAsync(User);
 
 }

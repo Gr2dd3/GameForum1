@@ -2,7 +2,7 @@
 @model GameForum1.Pages.MaincategoriesModel
 @inject List<Models.MainCategory> MainCategories
 @{
-
+    ViewData["Title"] = "Maincategories";
     MainCategories = await DAL.MainCategoryManager.GetMainCategories();
 }
 

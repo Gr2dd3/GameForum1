@@ -4,6 +4,7 @@
 @inject UserManager<GameForum1User> userManager
 @inject DAL.ProfilePictureManager profilePictureManager
 @{
+    ViewData["Title"] = "Comments";
     var myUser = await userManager.GetUserAsync(User);
 }
 

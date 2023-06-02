@@ -4,10 +4,8 @@
 @inject UserManager<GameForum1User> userManager
 @inject DAL.ProfilePictureManager profilePictureManager
 @{
-    //var profilePictures = await profilePictureManager.GetProfilePictures();
     var myUser = await userManager.GetUserAsync(User);
-    //byte[] imgContent;
-
+    ViewData["Title"] = "Userthreads";
 
 }
 

@@ -1,0 +1,46 @@
+﻿@page
+@model GameForum1.Pages.UserThreadEditorModel
+@inject SignInManager<GameForum1User> signInManager
+@inject UserManager<GameForum1User> userManager
+@inject DAL.ProfilePictureManager profilePictureManager
+@{
+    var myUser = await userManager.GetUserAsync(User);
+}
+
+<div class="card my-2 mx-auto">
+    @{
+        Model.ImageSrc = await profilePictureManager.SetProfilePicture(myUser.Id);
+    }
+    <img src="@Model.ImageSrc" class="card-img-top">
+
+    <div class="card-body">
+        <div class="text-section">
+            <h5 class="card-title fw-bold"><span class="mygradient">@myUser.NickName</span> says:</h5>
+            <p class="card-text py-5">@Model.UserThread.Content</p>
+        </div>
+        <div class="cta-section">
+            <div>@Model.UserThread.Date</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="UserThread.Id" />
+            <input type="hidden" asp-for="UserThread.Date" />
+            <input type="hidden" asp-for="UserThread.Score" />
+            <input type="hidden" asp-for="UserThread.SubCategoryId" />
+            <input type="hidden" asp-for="UserThread.UserId" />
+            <input type="hidden" asp-for="UserThread.Header"/>
+
+            <label asp-for="@Model.UserThread.Content" class="control-label"></label>
+            <input asp-for="@Model.UserThread.Content" class="form-control" />
+            <span asp-validation-for="@Model.UserThread.Content" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" asp-page-handler="Edit" value="Create" class="btn btn-primary mt-3 mb-2" />
+        </div>
+    </form>
+</div>

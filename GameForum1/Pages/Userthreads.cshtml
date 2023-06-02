@@ -4,88 +4,99 @@
 @inject UserManager<GameForum1User> userManager
 @inject DAL.ProfilePictureManager profilePictureManager
 @{
-    var myUser = await userManager.GetUserAsync(User);
-    ViewData["Title"] = "Userthreads";
+	var myUser = await userManager.GetUserAsync(User);
+	ViewData["Title"] = "Userthreads";
 
 }
 
 
 @*MODAL TOGGLE BUTTON*@
 <div class="card cardbig my-2 mx-auto">
-    <div class="card-body">
-        <button type="button" class="btn bg-light" style="padding:0">
-            <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
-        </button>
-        <div class="my-2 display-6 mygradient2">
-            @Model.SubCategory.Name
-        </div>
-        @if (signInManager.IsSignedIn(User))
-        {
-            <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                new thread
-            </button>
-        }
-    </div>
+	<div class="card-body">
+		<button type="button" class="btn bg-light" style="padding:0">
+			<a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
+		</button>
+		<div class="my-2 display-6 mygradient2">
+			@Model.SubCategory.Name
+		</div>
+		@if (signInManager.IsSignedIn(User))
+		{
+			<button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				new thread
+			</button>
+		}
+	</div>
 </div>
 
 @if (signInManager.IsSignedIn(User))
 {
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create new thread</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post">
-                        <div class="form-group">
-                            <label asp-for="UserThread.Header" class="control-label">Please enter Header</label>
-                            <input asp-for="UserThread.Header" class="form-control" />
-                            <span asp-validation-for="UserThread.Header" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="UserThread.Content" class="control-label">Enter text here...</label>
-                            <textarea asp-for="UserThread.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
-                            <br />
-                        </div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Create new thread</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="post">
+						<div class="form-group">
+							<label asp-for="UserThread.Header" class="control-label">Please enter Header</label>
+							<input asp-for="UserThread.Header" class="form-control" />
+							<span asp-validation-for="UserThread.Header" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="UserThread.Content" class="control-label">Enter text here...</label>
+							<textarea asp-for="UserThread.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+							<br />
+						</div>
 
-                        <button type="submit" class="btn btn-primary btn-block">Submit thread</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+						<button type="submit" class="btn btn-primary btn-block">Submit thread</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
 
 @foreach (var userThread in Model.UserThreads.OrderByDescending(x => x.Date))
 {
-    @foreach (var thisUser in userManager.Users.ToList())
-    {
-        if (thisUser.Id == userThread.UserId)
-        {
-            <div class="card cardcolor my-2 mx-auto">
-                @{
-                    Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
-                }
-                <img src="@Model.ImageSrc" class="card-img-top">
+	@foreach (var thisUser in userManager.Users.ToList())
+	{
+		if (thisUser.Id == userThread.UserId)
+		{
+			<div class="card cardcolor my-2 mx-auto">
+				@{
+					Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+				}
+				<img src="@Model.ImageSrc" class="card-img-top">
 
-                <div class="card-body">
-                    <div class="text-section">
-                        <h5 class="card-title mygradient2">@userThread.Header</h5>
-                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName</span></p>
-                    </div>
-                    <div class="cta-section">
-                        <p>@userThread.Date</p>
-                        <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
-                            <form method="post" style="z-index:2">
-                                <button type="submit" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@Model.SubCategory.Id" style="z-index:2" class="btn btn-light bg-light" id="btnReportThread">Report</button>
-                            </form>
-                    </div>
-                </div>
-            </div>
-        }
-    }
+				<div class="card-body">
+					<div class="text-section">
+						<h5 class="card-title mygradient2">@userThread.Header</h5>
+						<p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName</span></p>
+					</div>
+					<div class="cta-section">
+						<p>@userThread.Date</p>
+						@if (myUser is not null && myUser.Id == userThread.UserId)
+						{
+							<a class="btn btn-light bg-light" asp-page="./UserThreadEditor" asp-route-editId="@userThread.Id" style="z-index:2">Edit</a>
+						}
+						<form method="post" style="z-index:2">
+							@if (myUser is not null && myUser.Id == userThread.UserId)
+							{
+								<button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" style="z-index:2">Remove</button>
+							}
+							<button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" style="z-index:2">Report</button>
+						</form>
+						<a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>
+@*						<form method="post" style="z-index:2">
+							<button type="submit" asp-page-handler="Report" asp-route-reportId="@userThread.Id" asp-route-subCategoryId="@Model.SubCategory.Id" style="z-index:2" class="btn btn-light bg-light" id="btnReportThread">Report</button>
+						</form>*@
+					</div>
+				</div>
+			</div>
+		}
+	}
 }

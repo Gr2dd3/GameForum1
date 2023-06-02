@@ -17,6 +17,7 @@ namespace GameForum1.Pages
         }
         public DbPrivateMessage OpenedMessage { get; set; }
         public GameForum1User Sender { get; set; }
+        public GameForum1User Recipient { get; set; }
 
         public string ImageSrc { get; set; }
         public async Task<IActionResult> OnGetAsync(int messageId)
@@ -35,8 +36,8 @@ namespace GameForum1.Pages
         {
             OpenedMessage = new();
             OpenedMessage = await _messageManager.GetOneMessage(id);
-
-            Sender = await _userManager.FindByIdAsync(OpenedMessage.SenderId);
+			Recipient = await _userManager.FindByIdAsync(OpenedMessage.RecipientId);
+			Sender = await _userManager.FindByIdAsync(OpenedMessage.SenderId);
         }
     }
 }

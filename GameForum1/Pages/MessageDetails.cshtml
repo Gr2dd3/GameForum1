@@ -1,34 +1,45 @@
 ﻿@page
 @model GameForum1.Pages.MessageDetailsModel
 @inject DAL.ProfilePictureManager profilePictureManager
+@inject UserManager<GameForum1User> userManager
 @{
+	var myUser = await userManager.GetUserAsync(User);
+
 }
 
 <div class="card cardbiginbox my-2 mx-auto">
-    <div class="card-body">
-        <button type="button" class="btn bg-light" style="padding:0">
-            <a asp-page="./Inbox" class="nav-link bg-light text-dark">Go back to inbox</a>
-        </button>
-        <div class="my-2 display-6">
-            Message details
-        </div>
-    </div>
+	<div class="card-body">
+		<button type="button" class="btn bg-light" style="padding:0">
+			<a asp-page="./Inbox" class="nav-link bg-light text-dark">Go back to inbox</a>
+		</button>
+		<div class="my-2 display-6">
+			Message details
+		</div>
+	</div>
 </div>
 
 <div class="card cardbig my-2 mx-auto">
-    @{
-        Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.Sender.Id);
-    }
-    <img src="@Model.ImageSrc" class="card-img-top">
+	@{
+		Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.Sender.Id);
+	}
+	<img src="@Model.ImageSrc" class="card-img-top">
 
-    <div class="card-body">
-        <div class="text-section">
-            <h5 class="mygradient2">@Model.OpenedMessage.Header</h5>
-            <p class="card-text py-5">@Model.OpenedMessage.Content</p>
-            <p class="card-text position-absolute bottom-0 start-20 py-1">From: <span class="mygradient fw-bold">@Model.Sender.NickName</span></p>
-        </div>
-        <div class="cta-section">
-            <div>@Model.OpenedMessage.Date</div>
-        </div>
-    </div>
+	<div class="card-body">
+		<div class="text-section">
+			<h5 class="mygradient2">@Model.OpenedMessage.Header</h5>
+			<p class="card-text py-5">@Model.OpenedMessage.Content</p>
+			@if (myUser.Id == Model.OpenedMessage.SenderId)
+			{
+				<p class="card-text position-absolute bottom-0 start-20 py-1">To: <span class="mygradient fw-bold">@Model.Recipient.NickName</span></p>
+			}
+			else
+			{
+				
+				<p class="card-text position-absolute bottom-0 start-20 py-1">From: <span class="mygradient fw-bold">@Model.Sender.NickName</span></p>
+			}
+		</div>
+		<div class="cta-section">
+			<div>@Model.OpenedMessage.Date</div>
+		</div>
+	</div>
 </div>

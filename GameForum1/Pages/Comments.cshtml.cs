@@ -59,6 +59,23 @@ namespace GameForum1.Pages
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
         }
 
+        public async Task<IActionResult> OnPostScoreAsync(int userThreadId, int commentId, int up, int down)
+        {
+            var comment = await CommentManager.GetOneComment(commentId);
+            if (up is not 0)
+            {
+                comment.Score += 1;
+                await CommentManager.UpdateComment(comment);
+            }
+            if (down is not 0)
+            {
+                comment.Score -= 1;
+                await CommentManager.UpdateComment(comment);
+            }
+
+            return RedirectToPage("/Comments", new { UserThreadId = userThreadId });
+        }
+
         public async Task<IActionResult> OnPostReport(int userThreadId, int reportId)
         {
             if (reportId is not 0)

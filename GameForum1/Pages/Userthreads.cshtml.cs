@@ -46,6 +46,22 @@ namespace GameForum1.Pages
 			return Page();
 		}
 
+		public async Task<IActionResult> OnPostScoreAsync(int subCategoryId, int userThreadId, int up, int down)
+		{
+			var userThread = await UserThreadManager.GetOneUserThread(userThreadId);
+			if (up is not 0)
+			{
+                userThread.Score += 1;
+				await UserThreadManager.UpdateUserThread(userThread);
+			}
+			if (down is not 0)
+			{
+                userThread.Score -= 1;
+				await UserThreadManager.UpdateUserThread(userThread);
+            }
+
+            return RedirectToPage("/Userthreads", new { SubcategoryId = subCategoryId });
+        }
 		public async Task<IActionResult> OnPostReport(int subCategoryId, int reportId)
 		{
 			await DAL.UserThreadManager.ReportThread(reportId);

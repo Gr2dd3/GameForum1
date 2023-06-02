@@ -78,21 +78,28 @@
 
                 <div class="card-body">
                     <div class="text-section">
-                        <h5 class="card-title"><span class="mygradient">@thisUser.NickName</span> says:</h5> @*TODO: Färgval i span (comments)*@
+                        <h5 class="card-title"><span class="mygradient">@thisUser.NickName</span> says:</h5>
                         <p class="card-text py-5">@comment.Content</p>
                     </div>
                     <div class="cta-section">
                         <p>@comment.Date</p>
-                        @if (myUser is not null && myUser.Id == comment.UserId)
-                        {
-                            <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" style="z-index:2">Edit</a>
-                        }
+                        <form method="post" style="z-index:2">
+                            <div class="btn" style="z-index:2" role="group" aria-label="">
+                                <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-up-square"></i></button>
+                                <p class="my-auto mygradient2">@comment.Score p</p>
+                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-down-square"></i></button>
+                            </div>
+                        </form>
                         <form method="post" style="z-index:2">
                             @if (myUser is not null && myUser.Id == comment.UserId)
                             {
+                                <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" style="z-index:2">Edit</a>
                                 <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Remove</button>
                             }
-                            <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Report</button>
+                            @if (myUser.Id != comment.UserId)
+                            {
+                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Report</button>
+                            }
                         </form>
 
                     </div>

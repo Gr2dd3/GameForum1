@@ -52,7 +52,7 @@
                     <form method="post">
                         <div class="form-group">
                             <label asp-for="Comment.Content" class="control-label">Enter text here...</label>
-                            <textarea asp-for="Comment.Content" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+                            <textarea asp-for="Comment.Content" min="1" max="255" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
 
                         </div>
 
@@ -96,7 +96,7 @@
                                 <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" style="z-index:2">Edit</a>
                                 <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Remove</button>
                             }
-                            @if (myUser.Id != comment.UserId)
+                            @if (myUser is not null && myUser.Id != comment.UserId)
                             {
                                 <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Report</button>
                             }

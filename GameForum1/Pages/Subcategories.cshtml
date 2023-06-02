@@ -9,18 +9,10 @@
 
 <div class="card cardbig my-2 mx-auto">
     <div class="card-body">
-        <a href="javascript:history.back()" class="btn bg-light text-dark my-2">Go back</a>
+        <a href="javascript:history.back()" class="btn bg-light text-dark my-2 mx-4">Go back</a>
         <div class="my-2 display-6 mx-auto justify-content-between">@Model.Maincategory.Name subcategories</div>
     </div>
 </div>
-
-@*<script>
-    document.write('<a class="btn bg-light" href="' + document.referrer + '">Go Back</a>');
-</script>*@
-
-@*<button type="button" class="btn bg-light" style="padding:0">
-    <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
-</button>*@
 
 @foreach (var subCategory in Model.SubCategories)
 {

@@ -10,7 +10,7 @@
         <button type="button" class="btn bg-light" style="padding:0">
             <a href="javascript:history.back()" class="nav-link bg-light text-dark">Go back</a>
         </button>
-        <div class="my-2 display-6">
+        <div class="my-2 display-6 mx-3">
             Welcome to your inbox
         </div>
         <button type="button" class="btn bg-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -62,59 +62,143 @@
 
 
 <section class="text-dark p-2 p-lg-0 pt-lg-1 text-md-start text-sm-start">
-    <div class="container" style="width:70em;">
-        <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
+    <div class="container-fluid">
+        <div class="row justify-content-between m-auto">
 
 
-            <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
-                <h5 class="mx-auto text-center">Inbox</h5>
-            </div>
+            @*Kolumn 1 - INBOX*@
+            <div class="col-md-6 col-sm-12">
 
-            <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
-                <h5 class="mx-auto text-center">Outbox</h5>
-            </div>
-        </div>
-        <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
-            @*INBOX HERE*@
-            <div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
-                @foreach (var message in Model.Inbox.OrderByDescending(x => x.Date))
-                {
-                    <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h5 class="card-title">@message.Header</h5>
-                            </div>
-                            <div class="cta-section">
-                                <div>@message.Date</div>
-                                <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
-                                <form method="post" style="z-index:2">
-                                    <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
-                                </form>
+                <div class="card bg-dark text-light display-5">
+                    <h5 class="mx-auto text-center">Inbox</h5>
+                </div>
+
+                <div class="my-2 p-md-2 px-sm-1 bg-dark rounded">
+                    @foreach (var message in Model.Inbox.OrderByDescending(x => x.Date))
+                    {
+                        <div class="cardinbox py-1 my-2 mx-auto mw-100 rounded" style="transform: rotate(0)">
+                            <div class="card-body">
+                                <div class="text-section">
+                                    <h5 class="card-title">@message.Header</h5>
+                                </div>
+                                <div class="cta-section">
+                                    <div>@message.Date</div>
+                                    <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
+                                    <form method="post" style="z-index:2">
+                                        <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+
             </div>
-            @*OUTBOX HERE*@
-            <div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
-                @foreach (var message in Model.Outbox.OrderByDescending(x => x.Date))
-                {
-                    <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h5 class="card-title">@message.Header</h5>
-                            </div>
-                            <div class="cta-section">
-                                <div>@message.Date</div>
-                                <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
-                                <form method="post" style="z-index:2">
-                                    <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
-                                </form>
+
+
+            @*Kolumn 2 - OUTBOX*@
+            <div class="col-md-6 col-sm-12">
+
+                <div class="card bg-dark text-light display-5">
+                    <h5 class="mx-auto text-center">Outbox</h5>
+                </div>
+
+                <div class="my-2 p-md-2 px-sm-1 bg-dark rounded">
+                    @foreach (var message in Model.Outbox.OrderByDescending(x => x.Date))
+                    {
+                        <div class="cardinbox py-1 my-2 mx-auto mw-100 rounded" style="transform: rotate(0)">
+                            <div class="card-body">
+                                <div class="text-section">
+                                    <h5 class="card-title">@message.Header</h5>
+                                </div>
+                                <div class="cta-section">
+                                    <div>@message.Date</div>
+                                    <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
+                                    <form method="post" style="z-index:2">
+                                        <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+
             </div>
+
+
+
+
         </div>
     </div>
 </section>
+
+
+
+
+
+
+@*<section class="text-dark p-2 p-lg-0 pt-lg-1 text-md-start text-sm-start">
+        <div class="container" style="width:70em;">
+
+
+            <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
+                <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
+                    <h5 class="mx-auto text-center">Inbox</h5>
+                </div>
+
+                <div class="card col-md-5 col-sm-12 bg-dark text-light display-5">
+                    <h5 class="mx-auto text-center">Outbox</h5>
+                </div>
+            </div>
+
+
+            <div class="d-sm-flex justify-content-between d-lg-flex d-md-flex row">
+
+
+                  @*INBOX HERE*@
+@*                <div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
+                    @foreach (var message in Model.Inbox.OrderByDescending(x => x.Date))
+                    {
+                        <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
+                            <div class="card-body">
+                                <div class="text-section">
+                                    <h5 class="card-title">@message.Header</h5>
+                                </div>
+                                <div class="cta-section">
+                                    <div>@message.Date</div>
+                                    <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
+                                    <form method="post" style="z-index:2">
+                                        <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                 </div>*@
+
+
+                 @*OUTBOX HERE*@
+                 @*@<div class="my-2 col-md-5 col-sm-12 bg-dark rounded">
+                    @foreach (var message in Model.Outbox.OrderByDescending(x => x.Date))
+                    {
+                        <div class="cardinbox my-2 mx-auto rounded" style="transform: rotate(0)">
+                            <div class="card-body">
+                                <div class="text-section">
+                                    <h5 class="card-title">@message.Header</h5>
+                                </div>
+                                <div class="cta-section">
+                                    <div>@message.Date</div>
+                                    <a class="stretched-link" asp-route-messageId="@message.Id" asp-page="./MessageDetails" class="nav-link text-dark"></a>
+                                    <form method="post" style="z-index:2">
+                                        <button class="btn bg-light" asp-route-deleteId="@message.Id" asp-page-handler="Delete">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+        </div>
+</section>*@

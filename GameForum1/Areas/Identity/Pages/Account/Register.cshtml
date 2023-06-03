@@ -1,18 +1,27 @@
 ﻿@page
 @model RegisterModel
 @{
-
+    var name = @Model.GeneratedName == "" ? string.Empty : @Model.GeneratedName;
 }
 <div class="container">
     <h1 class="mygradient mx-auto text-center">Join Gamers Paradise</h1>
     <div class="row">
         <div class="col-md-4 offset-4 fs-5">
+            <h2 class="text-center mygradient">Create a new account.</h2>
+            <hr />
+
+            @*TODO: css/bootstrap på denna knapp*@
+            <form method="post">
+                <div>
+                    <button class="btn bg-light" asp-page-handler="Generate">Klicka här</button>
+                </div>
+            </form>
+
             <form class="mx-auto" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
-                <h2 class="text-center mygradient">Create a new account.</h2>
-                <hr />
+
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.NickName" class="form-control" autocomplete="nickname" aria-required="true" placeholder="Your nickname" />
+                    <input asp-for="Input.NickName" class="form-control" value="@name" autocomplete="nickname" aria-required="true" placeholder="Your nickname" />
                     <label asp-for="Input.NickName"></label>
                     <span asp-validation-for="Input.NickName" class="text-danger"></span>
                 </div>
@@ -27,7 +36,7 @@
                     <span asp-validation-for="Input.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.BirthYear" class="form-control"  max="2023" autocomplete="birthyear" aria-required="true" placeholder="Your birthyear" />
+                    <input asp-for="Input.BirthYear" class="form-control" max="2023" autocomplete="birthyear" aria-required="true" placeholder="Your birthyear" />
                     <label asp-for="Input.BirthYear"></label>
                     <span asp-validation-for="Input.BirthYear" class="text-danger"></span>
                 </div>

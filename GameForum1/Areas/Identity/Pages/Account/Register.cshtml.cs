@@ -51,8 +51,11 @@ namespace GameForum1.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _webHostEnvironment = webHostEnvironment;  //new
             _context = context;                        //new
+            GeneratedName = "";
         }
-        
+
+        [BindProperty]
+        public string GeneratedName { get; set; }
 
         public GameForum1User MyUser { get; set; }
 
@@ -79,11 +82,15 @@ namespace GameForum1.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+        public async Task OnPostGenerateAsync()
+        {
+            GeneratedName = await DAL.Data.GenerateNickNameAsync();
+        }
         public class InputModel
         {
             [BindProperty]
             public FileViewModel FileUpload { get; set; }
-
 
             [Required]
             [Display(Name = "First name")]
@@ -139,9 +146,6 @@ namespace GameForum1.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-
-
-
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)

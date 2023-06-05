@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+
+
+.headerLink {
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+}
+
+    .headerLink::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: magenta;
+        transition: width .3s;
+    }
+    .headerLink:hover::after {
+        width: 100%;
+       /* transition: width .3s;*/
+    }
+
+
 .logoutbtn {
     padding: 0.25em 0.5em;
     background-color: transparent;

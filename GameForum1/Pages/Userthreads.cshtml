@@ -17,7 +17,7 @@
         <button type="button" class="btn bg-light" style="padding:0">
             <a href="javascript:history.back()" class="nav-link bg-light text-dark"><i class="bi bi-caret-left-fill"></i></a>
         </button>
-        <div class="my-2 display-6 mx-3 mygradient2">
+        <div class="my-2 display-6 mx-3">
             @Model.SubCategory.Name
         </div>
         @if (signInManager.IsSignedIn(User))
@@ -92,7 +92,7 @@
                 <div class="card-body">
                     <div class="text-section">
                         <h5 class="card-title mygradient2">@userThread.Header</h5>
-                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName <span class="mygradient2"> | @comments.Count comments</span></span></p>
+                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName </span><span class=""> | @comments.Count comments</span></p>
 
                     </div>
                     <div class="cta-section">

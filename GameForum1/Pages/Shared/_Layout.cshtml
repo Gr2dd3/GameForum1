@@ -24,12 +24,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex align-content-end">
                     <ul class="navbar-nav flex-grow-1 fs-4">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Maincategories">Browse forum</a>
+                            <a class="nav-link text-light headerLink" asp-area="" asp-page="/Maincategories">Browse forum</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-page="/Admin/Index">Admin</a>
+                                <a class="nav-link text-light headerLink" asp-area="" asp-page="/Admin/Index">Admin</a>
                             </li>
                         }
                         

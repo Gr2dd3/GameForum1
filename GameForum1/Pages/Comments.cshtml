@@ -82,7 +82,7 @@
     </div>
 }
 
-@foreach (var comment in Model.Comments.OrderByDescending(x => x.Date))
+@foreach (var comment in Model.Comments.OrderBy(x => x.Date))
 {
     @foreach (var thisUser in userManager.Users.ToList())
     {

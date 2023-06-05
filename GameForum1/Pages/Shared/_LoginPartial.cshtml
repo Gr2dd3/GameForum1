@@ -8,12 +8,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
         <li class="nav-item fs-4 my-auto">
-            <a class="nav-link text-light fw-normal" asp-page="/Inbox">Inbox</a>
+            <a class="nav-link text-light fw-normal headerLink" asp-page="/Inbox">Inbox</a>
     </li>
         <li class="nav-item fs-4 my-auto">
-        <a id="manage" class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
+        <a id="manage" class="nav-link headerLink" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
     </li>
-        <li class="nav-item fs-4 my-auto">
+        <li class="nav-item fs-4 my-auto headerLink">
         <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
             @*<button id="logout" type="submit" class="nav-link btn btn-link border-0  btn-close-white">Logout</button>*@
                 <button class="logoutbtn"></button>
@@ -23,7 +23,7 @@
 }
 else
 {
-        <li class="nav-item fs-4 my-auto">
+        <li class="nav-item fs-4 my-auto headerLink">
         <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
         <li class="nav-item fs-4 my-auto">

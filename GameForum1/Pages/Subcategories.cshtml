@@ -5,12 +5,12 @@
     ViewData["Title"] = "Subcategories";
 }
 
-
-
-<div class="card cardbig my-2 mx-auto">
-    <div class="card-body">
-        <a href="javascript:history.back()" class="btn bg-light text-dark my-2 mx-4">Go back</a>
-        <div class="my-2 display-6 mx-auto justify-content-between">@Model.Maincategory.Name subcategories</div>
+<div class="col-10 offset-1">
+    <div class="card cardbig my-2 mx-auto">
+        <div class="card-body col-12">
+            <a href="javascript:history.back()" class="btn bg-light text-black my-2 col-sm-1" style="z-index:2;"><i class="bi bi-caret-left-fill"></i></a>
+            <div class="my-auto display-6 col-12 text-center" style="align-self: flex-start; transform:translateX(-8.5%)">@Model.Maincategory.Name subcategories</div>
+        </div>
     </div>
 </div>
 

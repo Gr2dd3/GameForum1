@@ -437,7 +437,7 @@ button {
     color: #050801;
     border: none;
 }
-.cardbig:hover {
+.cardbig:hover, .cardbiginbox:hover {
     background-color: #303633;
     color: #fff;
     border: none;

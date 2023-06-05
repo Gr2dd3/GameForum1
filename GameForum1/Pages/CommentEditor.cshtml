@@ -8,9 +8,17 @@
 }
 
 
+<div class="col-10 offset-1">
+    <div class="card cardbig my-2 mx-auto">
+        <div class="card-body col-12">
+            <a href="javascript:history.back()" class="btn bg-light text-black my-2 col-sm-1" style="z-index:2;"><i class="bi bi-caret-left-fill"></i></a>
+            <div class="my-auto display-6 col-12 text-center" style="align-self: flex-start; transform:translateX(-8.5%)">Comment editor</div>
+        </div>
+    </div>
+</div>
 
 
-<div class="card my-2 mx-auto">
+<div class="card commentcard my-2 mx-auto">
     @{
         Model.ImageSrc = await profilePictureManager.SetProfilePicture(myUser.Id);
     }

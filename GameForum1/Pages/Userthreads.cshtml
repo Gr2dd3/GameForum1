@@ -8,7 +8,7 @@
     ViewData["Title"] = "Userthreads";
 
 
-}
+}   
 
 
 @*MODAL TOGGLE BUTTON*@
@@ -25,6 +25,12 @@
             <button type="button" class="btn bg-light" style="z-index: 2;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 new thread
             </button>
+        }
+        else
+        {
+            <a class="btn bg-light my-2" style="z-index: 2;" id="login" asp-area="Identity" asp-page="/Account/Login">
+                Log in
+            </a>
         }
     </div>
 </div>

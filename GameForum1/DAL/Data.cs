@@ -2,19 +2,15 @@
 {
     public class Data
     {
-
         public static async Task<string> GenerateNickNameAsync()
         {
-            var value = Random.Shared.Next(10);
-            string nickName = string.Empty;
-
-            var colors = "Yellow,Blue,Orange,Green,Red,Black,Purple,Grey,White,Pink".Split(',');
-            nickName = colors[value];
+            var colors = "Yellow,Blue,Orange,Green,Red,Black,Purple,Gray,White,Pink,Brown".Split(',');
+            string nickName = colors[Random.Shared.Next(colors.Length)];
 
             var dishes = "Spaghetti,Meatball,Pie,Potato,Maccaroni,Pizza,Broccoli,Ketchup,Cupcake,LemonChicken".Split(',');
-            nickName += dishes[value];
+            nickName += dishes[Random.Shared.Next(dishes.Length)];
 
-            nickName += (value + 1) + (value + 1) + (value + 1) + (value + 1);
+            nickName += Random.Shared.Next(10, 1000);
 
             return nickName;
         }

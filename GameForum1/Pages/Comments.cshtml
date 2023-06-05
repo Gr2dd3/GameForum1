@@ -20,8 +20,13 @@
 
 @*USERTHREAD*@
 <div class="card cardbig my-2 mx-auto">
-    @{
+    @if (Model.UserThread.Image is null)
+    {
         Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.UserThread.UserId);
+    }
+    else
+    {
+        Model.ImageSrc = "../img/" + Model.UserThread.Image;
     }
     <img src="@Model.ImageSrc" class="card-img-top">
 

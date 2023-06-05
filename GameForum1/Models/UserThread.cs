@@ -29,4 +29,7 @@ public class UserThread
     [JsonPropertyName("reported")]
     public bool Reported { get; set; }
 
+    [JsonPropertyName("image")]
+    public string? Image { get; set; }
+
 }

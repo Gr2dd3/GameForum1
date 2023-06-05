@@ -40,11 +40,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label asp-for="UserThread.Header"  class="control-label">Please enter Header</label>
+                            <label asp-for="UserThread.Header" class="control-label">Please enter Header</label>
                             <input asp-for="UserThread.Header" min="2" max="70" class="form-control" />
                             <span asp-validation-for="UserThread.Header" class="text-danger"></span>
+                            <label asp-for="UserThread.Image" class="form-label"></label>
+                            <input type="file" class="form-control" name="UploadedImage">
+                            <span asp-validation-for="UserThread.Image" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="UserThread.Content" class="control-label">Enter text here...</label>
@@ -68,8 +71,13 @@
         if (thisUser.Id == userThread.UserId)
         {
             <div class="card cardcolor my-2 mx-auto">
-                @{
+                @if (userThread.Image is null)
+                {
                     Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                }
+                else
+                {
+                    Model.ImageSrc = "../img/" + userThread.Image;
                 }
                 <img src="@Model.ImageSrc" class="card-img-top">
 
@@ -85,7 +93,7 @@
                             <div class="mb-2" style="z-index:2" role="group" aria-label="">
                                 <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-up-fill"></i></button>
                                 <h5 class="my-auto mygradient fw-bold text-center">@userThread.Score</h5>
-                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id"  style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
+                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
                             </div>
                         </form>
                         <form method="post" style="z-index:2">
@@ -101,7 +109,7 @@
                                         var reportedButtonName = userThread.Reported == false ? "Report" : "Under review";
                                     }
                                     @reportedButtonName
-                                    </button>
+                                </button>
                             }
                         </form>
                         <a class="stretched-link" asp-page="/Comments" asp-route-userThreadId="@userThread.Id" class="nav-link text-dark"></a>

@@ -1,5 +1,10 @@
+using GameForum1.DAL;
+using GameForum1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace GameForum1.Pages.Admin
 {
@@ -23,11 +28,22 @@ namespace GameForum1.Pages.Admin
         {
             var allComments = await DAL.CommentManager.GetComments();
 
-            var comments = allComments.Where(x => x.UserThreadId == reportId).ToList();
+            if (reportId is not 0)
+            {
+                var comments = allComments.Where(x => x.UserThreadId == reportId).ToList();
 
-            comments.ForEach(comment => DAL.CommentManager.DeleteComment(comment.Id));
+                comments.ForEach(comment => DAL.CommentManager.DeleteComment(comment.Id).Wait());
 
-            await DAL.UserThreadManager.DeleteUserThread(reportId);
+                var userThread = await DAL.UserThreadManager.GetOneUserThread(reportId);
+                if (userThread is not null)
+                {
+                    if (System.IO.File.Exists("./wwwroot/img/" + userThread.Image))
+                    {
+                        System.IO.File.Delete("./wwwroot/img/" + userThread.Image);
+                    }
+                }
+                await UserThreadManager.DeleteUserThread(reportId);
+            }
 
             return RedirectToPage("./ReportedThreads");
         }

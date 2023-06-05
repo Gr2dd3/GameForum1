@@ -8,8 +8,13 @@
 }
 
 <div class="card my-2 mx-auto">
-    @{
+    @if (Model.UserThread.Image is null)
+    {
         Model.ImageSrc = await profilePictureManager.SetProfilePicture(myUser.Id);
+    }
+    else
+    {
+        Model.ImageSrc = "../img/" + Model.UserThread.Image;
     }
     <img src="@Model.ImageSrc" class="card-img-top">
 
@@ -33,7 +38,8 @@
             <input type="hidden" asp-for="UserThread.Score" />
             <input type="hidden" asp-for="UserThread.SubCategoryId" />
             <input type="hidden" asp-for="UserThread.UserId" />
-            <input type="hidden" asp-for="UserThread.Header"/>
+            <input type="hidden" asp-for="UserThread.Header" />
+            <input type="hidden" asp-for="UserThread.Image" />
 
             <label asp-for="@Model.UserThread.Content" class="control-label"></label>
             <input asp-for="@Model.UserThread.Content" class="form-control" />

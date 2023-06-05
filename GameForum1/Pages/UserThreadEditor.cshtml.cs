@@ -1,3 +1,5 @@
+using GameForum1.Models;
+
 namespace GameForum1.Pages;
 
 public class UserThreadEditorModel : PageModel
@@ -18,8 +20,10 @@ public class UserThreadEditorModel : PageModel
     public SubCategory SubCategory { get; set; }
     public string ImageSrc { get; set; }
 
+
     public async Task<IActionResult> OnGetAsync(int editId)
     {
+        string picture = string.Empty;
         UserThread = await DAL.UserThreadManager.GetOneUserThread(editId);
 
         return Page();

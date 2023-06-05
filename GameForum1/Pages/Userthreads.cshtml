@@ -105,7 +105,7 @@
                                 <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
                             </div>
                         </form>
-                        <form method="post" style="z-index:2">
+                        <form class="py-2" method="post" style="z-index:2">
                             @if (myUser is not null && myUser.Id == userThread.UserId)
                             {
                                 <a class="btn btn-light bg-light" asp-page="./UserThreadEditor" asp-route-editId="@userThread.Id" data-toggle="tooltip" data-placement="top" title="Edit this thread" style="z-index:2"><i class="bi bi-pencil-square"></i></a>

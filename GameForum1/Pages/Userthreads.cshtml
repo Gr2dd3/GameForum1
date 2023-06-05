@@ -66,6 +66,8 @@
 
 @foreach (var userThread in Model.UserThreads.OrderByDescending(x => x.Date))
 {
+        var allComments = await DAL.CommentManager.GetComments();
+        var comments = allComments.Where(x => x.UserThreadId == userThread.Id).ToList();
     @foreach (var thisUser in userManager.Users.ToList())
     {
         if (thisUser.Id == userThread.UserId)
@@ -84,7 +86,8 @@
                 <div class="card-body">
                     <div class="text-section">
                         <h5 class="card-title mygradient2">@userThread.Header</h5>
-                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName</span></p>
+                        <p class="card-text position-absolute bottom-0 start-20 py-1">Author: <span class="mygradient fw-bold">@thisUser.NickName <span class="mygradient2"> | @comments.Count comments</span></span></p>
+
                     </div>
                     <div class="cta-section">
                         <p>@userThread.Date</p>

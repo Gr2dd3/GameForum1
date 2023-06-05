@@ -33,7 +33,6 @@
         </div>
         <div class="cta-section">
             <p>@Model.UserThread.Date</p>
-            <a href="javascript:history.back()" type="button" class="btn bg-light">Go back</a>
             <span>
                 @if (signInManager.IsSignedIn(User))
                 {
@@ -80,7 +79,7 @@
     {
         if (thisUser.Id == comment.UserId)
         {
-            <div class="card my-2 mx-auto">
+            <div class="card commentcard my-2 mx-auto">
                 @{
                     Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
                 }
@@ -94,17 +93,17 @@
                     <div class="cta-section">
                         <p>@comment.Date</p>
                         <form method="post" style="z-index:2">
-                            <div class="btn" style="z-index:2" role="group" aria-label="">
-                                <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-up-square"></i></button>
-                                <p class="my-auto mygradient2">@comment.Score p</p>
-                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-down-square"></i></button>
+                            <div class="mb-2" style="z-index:2" role="group" aria-label="">
+                                <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-up-fill"></i></button>
+                                <h5 class="my-auto mygradient fw-bold text-center">@comment.Score</h5>
+                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
                             </div>
                         </form>
                         <form method="post" style="z-index:2">
                             @if (myUser is not null && myUser.Id == comment.UserId)
-                            {
-                                <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" style="z-index:2">Edit</a>
-                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">Remove</button>
+                            { 
+                                <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" data-toggle="tooltip" data-placement="top" title="Edit this comment" style="z-index:2"><i class="bi bi-pencil-square"></i></a>
+                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" data-toggle="tooltip" data-placement="top" title="Remove this comment" style="z-index:2"><i class="bi bi-trash3-fill"></i></button>
                             }
                             @if (myUser is not null && myUser.Id != comment.UserId)
                             {

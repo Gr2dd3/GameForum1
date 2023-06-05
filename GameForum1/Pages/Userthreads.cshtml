@@ -82,17 +82,17 @@
                         <p>@userThread.Date</p>
 
                         <form method="post" style="z-index:2">
-                            <div class="btn" style="z-index:2" role="group" aria-label="">
-                                <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-up-square"></i></button>
-                                <p class="my-auto mygradient2">@userThread.Score p</p>
-                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-arrow-down-square"></i></button>
+                            <div class="mb-2" style="z-index:2" role="group" aria-label="">
+                                <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-up-fill"></i></button>
+                                <h5 class="my-auto mygradient fw-bold text-center">@userThread.Score</h5>
+                                <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-subCategoryId="@userThread.SubCategoryId" asp-route-userThreadId="@userThread.Id"  style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
                             </div>
                         </form>
                         <form method="post" style="z-index:2">
                             @if (myUser is not null && myUser.Id == userThread.UserId)
                             {
-                                <a class="btn btn-light bg-light" asp-page="./UserThreadEditor" asp-route-editId="@userThread.Id" style="z-index:2">Edit</a>
-                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" style="z-index:3">Remove</button>
+                                <a class="btn btn-light bg-light" asp-page="./UserThreadEditor" asp-route-editId="@userThread.Id" data-toggle="tooltip" data-placement="top" title="Edit this thread" style="z-index:2"><i class="bi bi-pencil-square"></i></a>
+                                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@userThread.Id" asp-route-subCategoryId="@userThread.SubCategoryId" data-toggle="tooltip" data-placement="top" title="Remove this thread" style="z-index:3"><i class="bi bi-trash3-fill"></i></button>
                             }
                             @if (myUser is not null && myUser.Id != userThread.UserId)
                             {

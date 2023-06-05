@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-.noHover {
-    pointer-events: none;
-}
-
 .logoutbtn {
     padding: 0.25em 0.5em;
     background-color: transparent;
@@ -30,7 +26,6 @@
         background: darkred;
         color: #050801;
         box-shadow: 0 0 5px darkred, 0 0 25px darkred, 0 0 50px darkred, 0 0 200px darkred;
-        -webkit-box-reflect: below 1px linear-gradient(transparent, darkred);
         border: none;
     }
 
@@ -434,21 +429,33 @@ button {
     .btn:hover {
         background: magenta;
         color: #050801;
-        box-shadow: 0 0 5px magenta, 0 0 5px magenta, 0 0 5px magenta, 0 0 5px magenta;
-        border: none;
+        border: solid 2px magenta;
     }
 
 .card:hover {
     background: #675d6e;
     color: #050801;
-    box-shadow: 0 0 5px #675d6e, 0 0 5px #675d6e, 0 0 5px #675d6e, 0 0 5px #675d6e;
+    border: none;
+}
+.cardbig:hover {
+    background-color: #303633;
+    color: #fff;
     border: none;
 }
 
-
+.commentcard:hover {
+    background-color: #7EA2AA;
+    color: #fff;
+}
     .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
         box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
     }
+
+
+.commentcard {
+    color: #fff;
+}
+
 
 .card {
     flex-direction: row;
@@ -484,6 +491,7 @@ button {
     background-color: #303633;
     color: #fff;
     box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+    
 }
 
 .cardbigcolor {

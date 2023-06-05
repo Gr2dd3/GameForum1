@@ -6,17 +6,17 @@
 <div class="container">
     <h1 class="mygradient mx-auto text-center">Join Gamers Paradise</h1>
     <div class="row">
-        <div class="col-4 offset-4 fs-5">
+        <div class="col-lg-4 mx-auto fs-5">
             <h2 class="text-center mygradient">Create a new account.</h2>
             <hr />
 
-            <form method="post">
+            <form class="text-center" method="post">
                 <div class="pb-3">
-                    <button class="btn bg-light col-12" asp-page-handler="Generate">Generate nickname</button>
+                    <button class="btn bg-light col-11" asp-page-handler="Generate">Generate nickname</button>
                 </div>
             </form>
 
-            <form class="mx-auto" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+            <form class="mx-auto col-11" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">

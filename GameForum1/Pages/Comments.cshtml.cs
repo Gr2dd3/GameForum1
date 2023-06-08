@@ -17,6 +17,7 @@ namespace GameForum1.Pages
             _context = context;
             UserThread = new();
             Comments = new();
+            CommentsAnswers = new();
             _userManager = userManager;
         }
 
@@ -24,8 +25,12 @@ namespace GameForum1.Pages
         public GameForum1User AuthorUser { get; set; }
         [BindProperty]
         public Comment Comment { get; set; }
+
+        [BindProperty]
+        public CommentAnswer Answer { get; set; }
         public UserThread UserThread { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<CommentAnswer> CommentsAnswers { get; set; }
         public string ImageSrc { get; set; }
 
 
@@ -35,11 +40,13 @@ namespace GameForum1.Pages
             MyUser = await _userManager.GetUserAsync(User);
 
             var allComments = await DAL.CommentManager.GetComments();
+            var allCommentAnswers = await DAL.CommentAnswerManager.GetCommentAnswers();
 
             UserThread = await DAL.UserThreadManager.GetOneUserThread(userThreadId);
             AuthorUser = await _userManager.FindByIdAsync(UserThread.UserId);
 
             Comments.AddRange(allComments.Where(x => x.UserThreadId == userThreadId));
+            CommentsAnswers.AddRange(allCommentAnswers);
             return Page();
 
         }
@@ -58,7 +65,19 @@ namespace GameForum1.Pages
 
             return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
         }
+        public async Task<IActionResult> OnPostAnswerAsync(int userThreadId, int commentId)
+        {
+            MyUser = await _userManager.GetUserAsync(User);
 
+            //Answer.UserThreadId = userThreadId;
+            Answer.UserId = MyUser.Id;
+            Answer.Date = DateTime.Now;
+            Answer.CommentId = commentId;
+
+            await DAL.CommentAnswerManager.CreateCommentAnswer(Answer);
+
+            return RedirectToPage("/Comments", new { UserthreadId = userThreadId });
+        }
         public async Task<IActionResult> OnPostScoreAsync(int userThreadId, int commentId, int up, int down)
         {
             var comment = await CommentManager.GetOneComment(commentId);

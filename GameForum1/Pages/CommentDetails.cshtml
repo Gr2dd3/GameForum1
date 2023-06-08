@@ -1,0 +1,44 @@
+﻿@page
+@model GameForum1.Pages.CommentDetailsModel
+@inject GameForum1.DAL.ProfilePictureManager profilePictureManager;
+@inject UserManager<GameForum1User> userManager;
+@{
+    var myUser = await userManager.GetUserAsync(User);
+}
+@if(Model.Comment is not null)
+{
+
+
+    @if (Model.ImageSrc is not null)
+    {
+        Model.ImageSrc = await profilePictureManager.SetProfilePicture(Model.Comment.UserId);
+    }
+    else
+    {
+        Model.ImageSrc = "../img/defaultProfile.png";
+    }
+    <img src="@Model.ImageSrc" class="card-img-top">
+    <div class="card-body">
+        <div class="text-section">
+            <h5 class="card-title"><span class="mygradient">@Model.CommentUser.NickName</span> says:</h5>
+            <p class="card-text py-5">@Model.Comment.Content</p>
+        </div>
+        <div class="cta-section">
+            <div>@Model.Comment.Date</div>
+        </div>
+    </div>
+
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="@Model.CommentAnswer.Id" />
+        <input type="hidden" asp-for="@Model.CommentAnswer.Score" />
+        <input type="hidden" asp-for="@Model.CommentAnswer.Reported" />
+        <label asp-for="CommentAnswer.Content" class="control-label">Enter text here...</label>
+        <textarea asp-for="CommentAnswer.Content" min="1" max="255" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" asp-route-commentId="@Model.Comment.Id" asp-route-UserThreadId="@Model.Comment.UserThreadId">Submit answer</button>
+</form>
+}

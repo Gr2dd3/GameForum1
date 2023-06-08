@@ -6,6 +6,12 @@
 @{
     ViewData["Title"] = "Comments";
     var myUser = await userManager.GetUserAsync(User);
+    bool opened;
+
+    bool GetBoolean()
+    {
+        return true;
+    }
 }
 
 
@@ -80,6 +86,29 @@
             </div>
         </div>
     </div>
+
+    @*    <!-- Modal answer TODO: Behöver skicka med route-id till onPostmetod-->
+    <div class="modal fade" id="answerModal" tabindex="-1" aria-labelledby="answerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Answer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label asp-for="Answer.Content" class="control-label">Enter text here...</label>
+                            <textarea asp-for="Answer.Content" min="1" max="255" class="form-control form-control-lg form-control-sm" rows="3"></textarea>
+
+                        </div>
+
+                        <button type="submit" asp-page-handler="Answer" class="btn btn-primary btn-block">Submit answer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>*@
 }
 
 @foreach (var comment in Model.Comments.OrderBy(x => x.Date))
@@ -110,24 +139,80 @@
                         </form>
                         <form method="post" style="z-index:2">
                             @if (myUser is not null && myUser.Id == comment.UserId)
-                            { 
+                            {
                                 <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" data-toggle="tooltip" data-placement="top" title="Edit this comment" style="z-index:2"><i class="bi bi-pencil-square"></i></a>
                                 <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" data-toggle="tooltip" data-placement="top" title="Remove this comment" style="z-index:2"><i class="bi bi-trash3-fill"></i></button>
                             }
-                            @if (myUser is not null && myUser.Id != comment.UserId)
-                            {
+                        </form>
+                        @if (myUser is not null && myUser.Id != comment.UserId)
+                        {
+
+                            <!-- Skapa knapp för att få upp fält-->
+                            <form method="get" style="z-index:2">
+                                <a type="submit" class="btn bg-light" style="z-index:2" asp-page="/CommentDetails" asp-route-commentId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId">Answer</a>
+                            </form>
+                            <form method="post" style="z-index:2">
                                 <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">
                                     @{
                                         var reportedButtonName = comment.Reported == false ? "Report" : "Under review";
                                     }
                                     @reportedButtonName
-                                    </button>
-                            }
-                        </form>
+                                </button>
+                            </form>
+                        }
 
                     </div>
                 </div>
             </div>
+
+
+            @foreach (var answer in Model.CommentsAnswers.Where(x => x.CommentId == comment.Id))
+            {
+                <div class="card commentcard my-2 mx-auto">
+                    @{
+                        Model.ImageSrc = await profilePictureManager.SetProfilePicture(thisUser.Id);
+                    }
+                    <img src="@Model.ImageSrc" class="card-img-top">
+
+                    <div class="card-body">
+                        <div class="text-section">
+                            @if (myUser is not null)
+                            {
+                                <h5 class="card-title"><span class="mygradient">@myUser.NickName</span> says:</h5>
+                            }
+
+                            <p class="card-text py-5">@answer.Content</p>
+                        </div>
+                        <div class="cta-section">
+                            <p>@answer.Date</p>
+                            <form method="post" style="z-index:2">
+                                <div class="mb-2" style="z-index:2" role="group" aria-label="">
+                                    <button type="submit" asp-page-handler="Score" asp-route-up="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-up-fill"></i></button>
+                                    <h5 class="my-auto mygradient fw-bold text-center">@answer.Score</h5>
+                                    <button type="submit" asp-page-handler="Score" asp-route-down="1" asp-route-userThreadId="@comment.UserThreadId" asp-route-commentId="@comment.Id" style="z-index:2" class="btn bg-light"><i class="bi bi-caret-down-fill"></i></button>
+                                </div>
+                            </form>
+                            <form method="post" style="z-index:2">
+                                @*                                @if (myUser is not null && myUser.Id == answer.UserId)
+                {
+                <a class="btn btn-light bg-light" asp-page="./CommentEditor" asp-route-editId="@comment.Id" data-toggle="tooltip" data-placement="top" title="Edit this comment" style="z-index:2"><i class="bi bi-pencil-square"></i></a>
+                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Remove" asp-route-removeId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" data-toggle="tooltip" data-placement="top" title="Remove this comment" style="z-index:2"><i class="bi bi-trash3-fill"></i></button>
+                }
+                @if (myUser is not null && myUser.Id != comment.UserId)
+                {
+                <button type="submit" class="btn btn-light bg-light" asp-page-handler="Report" asp-route-reportId="@comment.Id" asp-route-userThreadId="@comment.UserThreadId" style="z-index:2">
+                @{
+                var reportedButtonName = comment.Reported == false ? "Report" : "Under review";
+                }
+                @reportedButtonName
+                </button>
+                }*@
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            }
         }
     }
 }
